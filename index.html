@@ -1,42 +1,2148 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.4">
-  <style type="text/css">
-    body {background-color: #0c1118}
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 22.0px 'Helvetica Neue'; color: #182b4c; -webkit-text-stroke: #182b4c}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 28.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #bc993c; -webkit-text-stroke: #bc993c}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #ffffff; color: rgba(255, 255, 255, 0.5); -webkit-text-stroke: rgba(255, 255, 255, 0.5); background-color: #0d1628; background-color: rgba(13, 22, 40, 0.95)}
-    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #ffffff; color: rgba(255, 255, 255, 0.5); -webkit-text-stroke: rgba(255, 255, 255, 0.5)}
-    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #ffffff; color: rgba(255, 255, 255, 0.5); -webkit-text-stroke: rgba(255, 255, 255, 0.5); min-height: 13.0px}
-    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px 'Helvetica Neue'; color: #182b4c; -webkit-text-stroke: #182b4c; background-color: #bc993c}
-    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px 'Helvetica Neue'; color: #182b4c; -webkit-text-stroke: #182b4c; background-color: #bc993c; min-height: 18.0px}
-    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px 'Helvetica Neue'; color: #182b4c; -webkit-text-stroke: #182b4c}
-    p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 11.0px 'Helvetica Neue'; color: #ffffff; color: rgba(255, 255, 255, 0.3); -webkit-text-stroke: rgba(255, 255, 255, 0.3)}
-    span.s1 {font-kerning: none; background-color: #bc993c}
-    span.s2 {font-kerning: none; background-color: rgba(13, 22, 40, 0.95)}
-    span.s3 {font-kerning: none}
-    span.Apple-tab-span {white-space:pre}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Titan Roofing — Orbit Command</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#1F3A5F;--navy-light:#2a4d7a;--gold:#C9A84C;--gold-light:#e8c96a;
+  --gold-pale:#fdf6e3;--green:#1A5C38;--green-light:#eaf4ee;
+  --orange:#E07B39;--red:#C0392B;--red-light:#fdf0ef;
+  --white:#fff;--off-white:#f8f9fa;--gray-100:#f2f4f7;--gray-200:#e5e8ed;
+  --gray-400:#9aa3b0;--gray-600:#5a6478;--gray-700:#404b5a;--gray-800:#2d3544;
+  --shadow-sm:0 1px 4px rgba(0,0,0,.08);--shadow-md:0 4px 20px rgba(0,0,0,.12);
+  --shadow-lg:0 12px 48px rgba(0,0,0,.18);--radius:8px;--radius-lg:14px;
+
+  /* ORBIT THEME */
+  --orb-bg: radial-gradient(ellipse at 30% 20%, #0f1e35 0%, #070e1c 60%, #020508 100%);
+  --orb-gold: #C9A84C;
+  --orb-cyan: #38bdf8;
+  --orb-ring: rgba(201,168,76,0.15);
+  --orb-line: rgba(201,168,76,0.2);
+  --orb-glow: rgba(201,168,76,0.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:#0d1520;color:var(--gray-800);min-height:100vh;overflow:hidden}
+
+/* ═══════════════════════════════════════
+   LOGIN
+═══════════════════════════════════════ */
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 40% 30%,#0f1e35 0%,#070e1c 70%,#020508 100%);
+  position:relative;overflow:hidden}
+#login-screen::before{content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(201,168,76,.04) 40px),
+             repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(201,168,76,.04) 40px);pointer-events:none}
+.login-card{background:rgba(15,30,53,0.95);border:1px solid rgba(201,168,76,0.3);
+  border-radius:20px;padding:48px 40px;width:100%;max-width:420px;
+  box-shadow:0 0 60px rgba(201,168,76,0.1),0 24px 80px rgba(0,0,0,.6);
+  backdrop-filter:blur(20px);position:relative;z-index:10}
+.login-logo{display:flex;align-items:center;gap:14px;margin-bottom:32px}
+.login-hex{width:52px;height:52px;background:var(--gold);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--navy);flex-shrink:0;
+  box-shadow:0 0 20px rgba(201,168,76,0.5)}
+.login-title{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--white);letter-spacing:2px;line-height:1}
+.login-sub{font-size:11px;color:var(--gold);letter-spacing:1px;margin-top:3px}
+.login-field{margin-bottom:18px}
+.login-field label{display:block;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px}
+.login-field input{width:100%;padding:12px 16px;background:rgba(255,255,255,.05);border:1.5px solid rgba(201,168,76,.2);
+  border-radius:var(--radius);font-size:15px;transition:all .2s;font-family:'Outfit',sans-serif;color:white}
+.login-field input::placeholder{color:rgba(255,255,255,.25)}
+.login-field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.15);background:rgba(255,255,255,.08)}
+.login-btn{width:100%;padding:14px;background:var(--gold);color:var(--navy);border:none;
+  border-radius:var(--radius);font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;
+  margin-top:6px;font-family:'Outfit',sans-serif;letter-spacing:.5px}
+.login-btn:hover{background:var(--gold-light);box-shadow:0 0 20px rgba(201,168,76,.4)}
+.login-err{background:rgba(192,57,43,.15);color:#f87171;border:1px solid rgba(192,57,43,.3);
+  border-radius:var(--radius);padding:10px 14px;font-size:13px;margin-bottom:16px;display:none}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);
+  border-top-color:var(--white);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ═══════════════════════════════════════
+   ORBIT SHELL — full screen canvas
+═══════════════════════════════════════ */
+#orbit-shell{
+  display:none;width:100vw;height:100vh;
+  background:var(--orb-bg);
+  position:relative;overflow:hidden;
+}
+/* animated star particles */
+#orbit-shell::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%,rgba(255,255,255,.5) 0%,transparent 100%),
+    radial-gradient(1px 1px at 25% 70%,rgba(255,255,255,.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 40% 35%,rgba(255,255,255,.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 55% 80%,rgba(255,255,255,.5) 0%,transparent 100%),
+    radial-gradient(1px 1px at 70% 20%,rgba(255,255,255,.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 85% 55%,rgba(255,255,255,.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 15% 90%,rgba(255,255,255,.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 90% 85%,rgba(255,255,255,.5) 0%,transparent 100%),
+    radial-gradient(2px 2px at 50% 50%,rgba(201,168,76,.2) 0%,transparent 100%);
+  pointer-events:none;
+}
+/* grid overlay */
+#orbit-shell::after{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(201,168,76,.03) 60px),
+             repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(201,168,76,.03) 60px);
+  pointer-events:none;
+}
+
+/* ─── TOP BAR ─── */
+.orbit-topbar{
+  position:absolute;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;
+  background:linear-gradient(180deg,rgba(7,14,28,.9) 0%,transparent 100%);
+}
+.orbit-logo{display:flex;align-items:center;gap:10px}
+.orbit-hex{width:36px;height:36px;background:var(--gold);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--navy);
+  box-shadow:0 0 16px rgba(201,168,76,.5)}
+.orbit-logo-text h1{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2.5px;color:white}
+.orbit-logo-text p{font-size:9px;color:var(--gold);letter-spacing:1.5px;opacity:.8}
+.orbit-topbar-right{display:flex;align-items:center;gap:10px}
+.orbit-user-pill{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);
+  border-radius:20px;padding:5px 14px;color:var(--gold);font-size:11px;font-weight:600;letter-spacing:.5px}
+.orbit-logout{background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);
+  border-radius:6px;padding:5px 12px;font-size:11px;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif}
+.orbit-logout:hover{border-color:rgba(201,168,76,.4);color:var(--gold)}
+
+/* ─── SVG CANVAS (rings + connectors) ─── */
+#orbit-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+
+/* ─── CENTER ORB ─── */
+#center-orb{
+  position:absolute;transform:translate(-50%,-50%);
+  width:130px;height:130px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#1e3a6e 0%,#0a1628 60%,#050c1a 100%);
+  border:2px solid rgba(201,168,76,.4);
+  box-shadow:0 0 0 8px rgba(201,168,76,.06),0 0 0 16px rgba(201,168,76,.03),
+             0 0 40px rgba(201,168,76,.25),inset 0 0 30px rgba(0,0,0,.5);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;z-index:50;transition:all .4s;
+  animation:orbPulse 3s ease-in-out infinite;
+}
+#center-orb:hover{
+  box-shadow:0 0 0 8px rgba(201,168,76,.1),0 0 0 20px rgba(201,168,76,.05),
+             0 0 60px rgba(201,168,76,.4),inset 0 0 30px rgba(0,0,0,.5);
+  transform:translate(-50%,-50%) scale(1.04);
+}
+@keyframes orbPulse{
+  0%,100%{box-shadow:0 0 0 8px rgba(201,168,76,.06),0 0 0 16px rgba(201,168,76,.03),0 0 40px rgba(201,168,76,.25),inset 0 0 30px rgba(0,0,0,.5)}
+  50%{box-shadow:0 0 0 12px rgba(201,168,76,.09),0 0 0 24px rgba(201,168,76,.04),0 0 55px rgba(201,168,76,.35),inset 0 0 30px rgba(0,0,0,.5)}
+}
+.orb-icon{font-size:30px;line-height:1}
+.orb-label{font-family:'Bebas Neue',sans-serif;font-size:11px;color:var(--gold);letter-spacing:2px;margin-top:5px}
+.orb-total{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:#4ade80;margin-top:3px}
+.orb-hint{font-size:8px;color:rgba(255,255,255,.3);letter-spacing:1px;margin-top:2px}
+
+/* ─── ORBIT TABS ─── */
+.orbit-tab{
+  position:absolute;transform:translate(-50%,-50%);
+  cursor:pointer;z-index:40;
+  transition:transform .25s, box-shadow .25s;
+  user-select:none;
+}
+.orbit-tab-inner{
+  width:82px;height:82px;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  border:2px solid rgba(201,168,76,.2);
+  background:radial-gradient(circle at 35% 30%,rgba(30,58,110,.9),rgba(7,14,28,.95));
+  box-shadow:0 0 20px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);
+  transition:all .3s;
+  position:relative;
+}
+.orbit-tab:hover .orbit-tab-inner{
+  border-color:rgba(201,168,76,.6);
+  box-shadow:0 0 25px rgba(201,168,76,.3),0 0 8px rgba(201,168,76,.2),inset 0 1px 0 rgba(255,255,255,.08);
+  transform:scale(1.1);
+}
+.orbit-tab.active .orbit-tab-inner{
+  border-color:var(--gold);
+  background:radial-gradient(circle at 35% 30%,rgba(40,70,130,.95),rgba(15,28,56,.95));
+  box-shadow:0 0 30px rgba(201,168,76,.5),0 0 12px rgba(201,168,76,.3),inset 0 1px 0 rgba(255,255,255,.1);
+}
+.orbit-tab.done .orbit-tab-inner{
+  border-color:rgba(74,222,128,.6);
+  box-shadow:0 0 20px rgba(74,222,128,.2);
+}
+.tab-emoji{font-size:22px;line-height:1}
+.tab-label{font-family:'Bebas Neue',sans-serif;font-size:9px;letter-spacing:1.5px;
+  color:rgba(201,168,76,.7);margin-top:3px;text-align:center;line-height:1.2}
+.orbit-tab.active .tab-label{color:var(--gold)}
+.orbit-tab.done .tab-label{color:rgba(74,222,128,.8)}
+/* drag ghost */
+.orbit-tab.dragging{z-index:200;opacity:.85}
+.orbit-tab.dragging .orbit-tab-inner{transform:scale(1.15);border-color:var(--gold);
+  box-shadow:0 0 40px rgba(201,168,76,.6)}
+
+/* drop zone highlight when dragging over center */
+#center-orb.drop-ready{
+  border-color:var(--gold);
+  box-shadow:0 0 0 12px rgba(201,168,76,.15),0 0 60px rgba(201,168,76,.5),inset 0 0 30px rgba(0,0,0,.5);
+  animation:none;
+}
+
+/* ─── BOTTOM STATUS BAR ─── */
+.orbit-statusbar{
+  position:absolute;bottom:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:center;gap:24px;
+  padding:12px 24px;
+  background:linear-gradient(0deg,rgba(7,14,28,.9) 0%,transparent 100%);
+}
+.status-item{display:flex;align-items:center;gap:6px;font-size:10px;color:rgba(255,255,255,.4);letter-spacing:1px;font-family:'Bebas Neue',sans-serif}
+.status-dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.4)}
+.status-dot.active{background:#4ade80;box-shadow:0 0 6px #4ade80}
+
+/* ─── INSTRUCTION HINT ─── */
+.orbit-hint{
+  position:absolute;bottom:52px;left:50%;transform:translateX(-50%);
+  font-size:10px;color:rgba(255,255,255,.25);letter-spacing:2px;font-family:'Bebas Neue',sans-serif;
+  pointer-events:none;white-space:nowrap;
+}
+
+/* ─── JOB SELECTOR PANEL ─── */
+#jobs-panel{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:min(480px,90vw);max-height:75vh;
+  background:rgba(8,17,32,.97);border:1px solid rgba(201,168,76,.25);
+  border-radius:16px;z-index:300;display:none;flex-direction:column;
+  box-shadow:0 0 80px rgba(201,168,76,.1),0 32px 80px rgba(0,0,0,.8);
+  backdrop-filter:blur(20px);overflow:hidden;
+}
+.jobs-panel-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;border-bottom:1px solid rgba(201,168,76,.15);
+  background:linear-gradient(135deg,rgba(31,58,95,.5),transparent);
+}
+.jobs-panel-title{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--gold);letter-spacing:2px}
+.jobs-panel-close{background:none;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);
+  border-radius:6px;padding:4px 10px;cursor:pointer;font-size:14px;transition:all .2s}
+.jobs-panel-close:hover{color:white;border-color:rgba(255,255,255,.3)}
+.jobs-panel-search{padding:12px 16px;border-bottom:1px solid rgba(201,168,76,.1)}
+.jobs-panel-search input{
+  width:100%;padding:9px 14px;background:rgba(255,255,255,.05);
+  border:1.5px solid rgba(201,168,76,.2);border-radius:8px;
+  font-size:13px;color:white;font-family:'Outfit',sans-serif;
+}
+.jobs-panel-search input::placeholder{color:rgba(255,255,255,.25)}
+.jobs-panel-search input:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.08)}
+.jobs-panel-actions{padding:8px 16px;border-bottom:1px solid rgba(201,168,76,.08);display:flex;gap:8px}
+.jobs-panel-list{flex:1;overflow-y:auto;padding:8px 0}
+.jobs-panel-list::-webkit-scrollbar{width:4px}
+.jobs-panel-list::-webkit-scrollbar-track{background:transparent}
+.jobs-panel-list::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);border-radius:2px}
+.job-orbit-item{
+  padding:12px 20px;cursor:pointer;border-left:3px solid transparent;
+  transition:all .15s;display:flex;align-items:center;justify-content:space-between;
+}
+.job-orbit-item:hover{background:rgba(201,168,76,.06);border-left-color:rgba(201,168,76,.4)}
+.job-orbit-item.active{background:rgba(201,168,76,.08);border-left-color:var(--gold)}
+.job-name{font-size:13px;font-weight:600;color:rgba(255,255,255,.9)}
+.job-meta{font-size:10px;color:rgba(255,255,255,.35);margin-top:2px}
+.job-total{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:#4ade80}
+.jobs-empty{padding:32px;text-align:center;color:rgba(255,255,255,.25);font-size:12px}
+.panel-btn{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:var(--gold);
+  border-radius:6px;padding:7px 14px;font-size:11px;font-weight:600;cursor:pointer;
+  font-family:'Outfit',sans-serif;transition:all .2s;letter-spacing:.3px}
+.panel-btn:hover{background:rgba(201,168,76,.25);border-color:var(--gold)}
+.panel-btn.navy{background:rgba(31,58,95,.5);border-color:rgba(31,58,95,.8);color:rgba(255,255,255,.7)}
+.panel-btn.navy:hover{background:rgba(31,58,95,.8);color:white}
+
+/* ═══════════════════════════════════════
+   FULL APP LAYER (slides in)
+═══════════════════════════════════════ */
+#app-layer{
+  position:fixed;inset:0;z-index:500;
+  background:#f8f9fa;
+  display:none;flex-direction:column;
+  transform:translateY(100vh);
+  transition:transform .5s cubic-bezier(.16,1,.3,1);
+}
+#app-layer.visible{transform:translateY(0)}
+
+/* ─── APP TOPBAR ─── */
+.app-topbar{
+  background:linear-gradient(135deg,var(--navy) 0%,#0d2140 100%);
+  border-bottom:3px solid var(--gold);
+  display:flex;align-items:center;gap:10px;
+  padding:8px 16px;flex-shrink:0;
+  box-shadow:var(--shadow-lg);
+}
+.app-topbar-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.app-hex{width:32px;height:32px;background:var(--gold);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--navy);flex-shrink:0}
+.app-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:white}
+.app-subtitle{font-size:9px;color:var(--gold);letter-spacing:.8px;margin-top:1px}
+.app-job-name{font-family:'Bebas Neue',sans-serif;font-size:13px;color:rgba(201,168,76,.7);
+  letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.back-to-orbit{
+  background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);
+  color:var(--gold);border-radius:8px;padding:6px 14px;font-size:11px;font-weight:600;
+  cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;
+  display:flex;align-items:center;gap:5px;white-space:nowrap;
+}
+.back-to-orbit:hover{background:rgba(201,168,76,.22);border-color:var(--gold)}
+.app-topbar-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+
+/* ─── SAVE BAR ─── */
+.save-bar{background:var(--white);border-bottom:1px solid var(--gray-200);
+  padding:7px 16px;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.job-title-input{flex:1;max-width:320px;padding:6px 10px;border:1.5px solid var(--gray-200);
+  border-radius:var(--radius);font-size:13px;font-weight:600;font-family:'Outfit',sans-serif}
+.job-title-input:focus{outline:none;border-color:var(--gold)}
+.save-status{font-size:11px;color:var(--gray-400);margin-left:4px}
+.save-status.saving{color:var(--orange)}.save-status.saved{color:var(--green)}.save-status.error{color:var(--red)}
+.save-btn{background:var(--gold);color:var(--navy);border:none;border-radius:var(--radius);
+  padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif}
+.save-btn:hover{background:var(--gold-light)}
+.del-btn{background:transparent;color:var(--red);border:1px solid var(--red);
+  border-radius:var(--radius);padding:5px 10px;font-size:11px;cursor:pointer;margin-left:auto;font-family:'Outfit',sans-serif}
+.del-btn:hover{background:var(--red-light)}
+
+/* ─── TAB BAR ─── */
+.tab-bar{background:var(--navy);border-bottom:1px solid rgba(201,168,76,.2);
+  display:flex;gap:2px;padding:0 14px;overflow-x:auto;flex-shrink:0}
+.tab-btn{background:none;border:none;cursor:pointer;padding:10px 14px;
+  font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;letter-spacing:.4px;
+  color:rgba(255,255,255,.5);border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.tab-btn:hover{color:rgba(255,255,255,.85)}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+.app-body{flex:1;overflow-y:auto;padding:18px;background:var(--off-white)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* ─── CARDS ─── */
+.card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);overflow:hidden;margin-bottom:18px}
+.card-header{background:var(--navy);color:var(--white);padding:11px 16px;display:flex;align-items:center;gap:10px;border-left:5px solid var(--gold)}
+.card-header h2{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1.5px}
+.card-header .badge{margin-left:auto;background:var(--gold);color:var(--navy);font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px;letter-spacing:.5px}
+.card-body{padding:16px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:11px;font-weight:700;color:var(--gray-600);text-transform:uppercase;letter-spacing:.7px}
+.field input,.field select,.field textarea{border:1.5px solid var(--gray-200);border-radius:var(--radius);
+  padding:7px 11px;font-size:13px;color:var(--gray-800);transition:border-color .2s;
+  background:var(--white);font-family:'Outfit',sans-serif}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.15)}
+.field textarea{resize:vertical;min-height:75px}
+.field .hint{font-size:10px;color:var(--gray-400)}
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--navy);
+  border-bottom:2px solid var(--gold);padding-bottom:4px;margin:18px 0 10px}
+.law-badge{background:var(--red-light);border:1px solid #f5c6c6;border-left:4px solid var(--red);
+  border-radius:var(--radius);padding:8px 12px;font-size:11px;color:var(--red);line-height:1.6;margin-top:5px}
+.law-badge strong{display:block;margin-bottom:2px}
+
+/* ─── DIFFICULTY ─── */
+.difficulty-grid{display:flex;gap:10px;margin-bottom:6px}
+.diff-card{flex:1;border:2px solid var(--gray-200);border-radius:var(--radius-lg);padding:10px;cursor:pointer;transition:all .2s;text-align:center}
+.diff-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.diff-card.selected{border-color:var(--gold);background:var(--gold-pale);box-shadow:0 0 0 3px rgba(201,168,76,.2)}
+.diff-card .diff-icon{font-size:20px;margin-bottom:4px}
+.diff-card .diff-name{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px}
+.diff-card .diff-desc{font-size:9px;color:var(--gray-400);margin-top:2px;line-height:1.4}
+.diff-easy .diff-name{color:var(--green)}.diff-moderate .diff-name{color:var(--gold)}.diff-complex .diff-name{color:var(--red)}
+
+/* ─── WARRANTY ─── */
+.warranty-grid{display:flex;gap:8px;flex-wrap:wrap}
+.war-card{flex:1;min-width:70px;border:2px solid var(--gray-200);border-radius:var(--radius-lg);padding:8px;cursor:pointer;transition:all .2s;text-align:center}
+.war-card:hover{border-color:var(--green)}
+.war-card.selected{border-color:var(--green);background:var(--green-light)}
+.war-card .war-years{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--green)}
+.war-card .war-label{font-size:9px;color:var(--gray-600);font-weight:600}
+.war-card .war-price{font-size:9px;color:var(--orange);font-weight:600;margin-top:2px}
+
+/* ─── TAKEOFF ─── */
+.takeoff-section{margin-bottom:18px}
+.takeoff-section-hdr{display:flex;align-items:center;gap:8px;background:var(--navy);color:var(--white);
+  padding:8px 12px;border-radius:var(--radius) var(--radius) 0 0;
+  font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1.5px;border-left:5px solid var(--gold)}
+.takeoff-table{width:100%;border-collapse:collapse}
+.takeoff-table th{background:var(--gray-100);color:var(--gray-600);font-size:10px;font-weight:700;
+  letter-spacing:.7px;padding:7px 10px;text-align:left;border-bottom:2px solid var(--gray-200)}
+.takeoff-table td{padding:6px 10px;border-bottom:1px solid var(--gray-100);font-size:12px;vertical-align:middle}
+.takeoff-table tr:hover td{background:var(--gold-pale)}
+.takeoff-table .cat-row td{background:var(--gold-pale);font-weight:700;font-size:10px;
+  color:var(--navy);letter-spacing:.5px;text-transform:uppercase;padding:5px 10px}
+.qty-input{width:68px;border:1.5px solid var(--gray-200);border-radius:6px;padding:4px 7px;
+  font-family:'JetBrains Mono',monospace;font-size:15px;text-align:center;color:#0000CC;-webkit-appearance:none}
+.qty-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.15)}
+.price-cell{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray-600)}
+.total-cell{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--green)}
+.desc-cell{font-size:10px;color:var(--gray-400);max-width:160px}
+
+/* ─── SUMMARY STRIP ─── */
+.summary-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.sum-card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:12px 16px;border-top:4px solid var(--gray-200)}
+.sum-card.mat{border-top-color:var(--green)}.sum-card.lab{border-top-color:var(--navy)}.sum-card.tot{border-top-color:var(--gold)}.sum-card.dep{border-top-color:var(--red)}
+.sum-card label{font-size:10px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.7px;display:block;margin-bottom:4px}
+.sum-card .sum-val{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:600}
+.sum-card.mat .sum-val{color:var(--green)}.sum-card.lab .sum-val{color:var(--navy)}.sum-card.tot .sum-val{color:var(--gold)}.sum-card.dep .sum-val{color:var(--red)}
+
+/* ─── TOTALS PANEL ─── */
+.totals-panel{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);overflow:hidden;margin-top:16px}
+.totals-inner{padding:16px}
+.total-line{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--gray-100);font-size:13px}
+.total-line:last-child{border-bottom:none}
+.total-line.grand{background:var(--navy);color:var(--white);margin:10px -16px -16px;padding:13px 16px;
+  font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;border-radius:0 0 var(--radius-lg) var(--radius-lg)}
+.total-line.grand span:last-child{color:var(--gold)}
+.rate-input{width:58px;border:1.5px solid var(--gray-200);border-radius:6px;padding:3px 5px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;text-align:center}
+
+/* ─── BUTTONS ─── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius);border:none;font-family:'Outfit',sans-serif;font-weight:600;font-size:12px;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--gold);color:var(--navy)}.btn-primary:hover{background:var(--gold-light);transform:translateY(-1px)}
+.btn-navy{background:var(--navy);color:var(--white)}.btn-navy:hover{background:var(--navy-light)}
+.btn-green{background:var(--green);color:var(--white)}.btn-green:hover{background:#1e6e43}
+.btn-ghost{background:transparent;color:var(--navy);border:2px solid var(--navy)}.btn-ghost:hover{background:var(--navy);color:var(--white)}
+.btn-sm{padding:5px 11px;font-size:11px}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+/* ─── INVOICE TABLE ─── */
+.invoice-table{width:100%;border-collapse:collapse}
+.invoice-table th{background:var(--navy);color:var(--white);padding:7px 9px;font-size:10px;letter-spacing:.5px;font-weight:700;text-align:left}
+.invoice-table td{padding:7px 9px;border-bottom:1px solid var(--gray-100);font-size:11px;vertical-align:middle}
+.invoice-table tr:nth-child(even) td{background:var(--gray-100)}
+
+/* ─── PROPOSAL OUTPUT ─── */
+#proposalOutput{font-family:'Outfit',sans-serif;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden}
+.prop-header{background:linear-gradient(135deg,var(--navy) 0%,#0d2140 100%);padding:28px 38px;border-left:8px solid var(--gold)}
+.prop-company{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--white);letter-spacing:3px}
+.prop-tagline{color:var(--gold);font-size:11px;letter-spacing:2px;margin-top:3px}
+.prop-contact{display:flex;gap:22px;margin-top:14px;font-size:12px;color:rgba(255,255,255,.7)}
+.prop-contact span strong{color:var(--gold);display:block;font-size:9px;letter-spacing:1px;text-transform:uppercase}
+.prop-title-bar{background:var(--gold);color:var(--navy);padding:7px 38px;
+  font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;display:flex;justify-content:space-between}
+.prop-body{padding:30px 38px}
+.prop-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;margin-bottom:22px}
+.prop-info-cell{padding:8px 13px;border-right:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200)}
+.prop-info-cell:nth-child(2n){border-right:none}
+.prop-info-cell label{font-size:9px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.7px;display:block;margin-bottom:2px}
+.prop-info-cell span{font-size:13px;color:var(--gray-800);font-weight:500}
+.prop-section-hdr{background:var(--navy);color:var(--white);padding:7px 13px;margin:20px -38px 0;
+  font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;border-left:6px solid var(--gold)}
+.prop-scope{background:var(--gold-pale);border-left:4px solid var(--gold);border-radius:0 var(--radius) var(--radius) 0;
+  padding:14px 18px;margin-top:10px;font-size:13px;line-height:1.8;color:var(--gray-800);white-space:pre-wrap}
+.prop-line-table{width:100%;border-collapse:collapse;margin-top:10px}
+.prop-line-table th{background:var(--green);color:var(--white);padding:7px 11px;font-size:10px;letter-spacing:.7px;text-align:left;font-weight:700}
+.prop-line-table th:last-child,.prop-line-table td:last-child{text-align:right}
+.prop-line-table th:nth-child(2),.prop-line-table th:nth-child(3),.prop-line-table th:nth-child(4){text-align:center}
+.prop-line-table td{padding:6px 11px;border-bottom:1px solid var(--gray-100);font-size:12px}
+.prop-line-table td:nth-child(2),.prop-line-table td:nth-child(3),.prop-line-table td:nth-child(4){text-align:center}
+.prop-line-table tr:nth-child(even) td{background:#fafbfc}
+.prop-cat-hdr td{background:var(--gold-pale)!important;font-weight:700;font-size:10px;color:var(--green);text-transform:uppercase}
+.prop-totals{margin-top:16px;border-top:2px solid var(--gray-200)}
+.prop-total-line{display:flex;justify-content:space-between;padding:7px 0;font-size:13px;border-bottom:1px solid var(--gray-100)}
+.prop-grand{background:var(--navy);color:var(--white);margin:0 -38px;padding:15px 38px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px}
+.prop-grand span:last-child{color:var(--gold)}
+.prop-payment-table{width:100%;border-collapse:collapse;margin-top:10px}
+.prop-payment-table td{padding:8px 11px;border-bottom:1px solid var(--gray-100);font-size:13px}
+.prop-payment-table tr:nth-child(even) td{background:var(--gold-pale)}
+.prop-payment-table .pay-amt{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);text-align:right}
+.prop-warning{background:var(--red-light);border:1px solid #f5c6c6;border-left:4px solid var(--red);
+  border-radius:var(--radius);padding:10px 13px;font-size:11px;color:var(--red);margin-top:10px}
+.prop-terms{font-size:11px;color:var(--gray-600);line-height:1.8;margin-top:10px}
+.prop-terms ol{padding-left:14px}
+.prop-terms li{margin-bottom:3px}
+.prop-sig{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:20px}
+.sig-block{border:1px solid var(--gray-200);border-radius:var(--radius);padding:16px}
+.sig-block h4{font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.sig-line{border-top:1px solid var(--gray-400);margin:14px 0 4px}
+.sig-label{font-size:10px;color:var(--gray-400)}
+.prop-footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:10px 38px;font-size:10px;letter-spacing:.5px}
+
+/* ─── TOAST ─── */
+#toast{position:fixed;bottom:20px;right:20px;z-index:9999;padding:10px 18px;
+  border-radius:var(--radius-lg);font-size:12px;font-weight:600;
+  box-shadow:0 8px 32px rgba(0,0,0,.25);color:var(--white);display:none;transition:opacity .3s}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){.form-grid-3{grid-template-columns:1fr 1fr}.summary-strip{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.form-grid-2,.form-grid-3{grid-template-columns:1fr}.difficulty-grid{flex-direction:column}
+  .prop-body{padding:18px 14px}.prop-header{padding:18px 14px}.prop-section-hdr{margin:14px -14px 0}
+  .prop-grand{margin:0 -14px;padding:11px 14px}.prop-info-grid{grid-template-columns:1fr}.prop-sig{grid-template-columns:1fr}}
+@media print{.app-topbar,.save-bar,.tab-bar,.btn-row,.summary-strip,.no-print{display:none!important}body{background:white!important}}
+</style>
 </head>
 <body>
-<p class="p1"><span class="s1">TR</span></p>
-<p class="p2"><span class="s2">TITAN ROOFING</span></p>
-<p class="p3"><span class="s2">&amp; CONSTRUCTION — ORBIT COMMAND</span></p>
-<p class="p4"><span class="s3">Abel@titanroofer.com<span class="Apple-tab-span">	</span></span></p>
-<p class="p5"><span class="s2">T4T2ne259</span></p>
-<p class="p6"><span class="s3"></span><br></p>
-<p class="p7"><span class="s3">Sign<span class="Apple-converted-space"> </span></span></p>
-<p class="p8"><span class="s3"></span><br></p>
-<p class="p8"><span class="s3"></span><br></p>
-<p class="p8"><span class="s3"></span><br></p>
-<p class="p8"><span class="s3"></span><br></p>
-<p class="p9"><span class="s1">In</span></p>
-<p class="p10"><span class="s2">Need access? Contact Abel · 707-495-8685</span></p>
+<div id="toast"></div>
+
+<!-- ══ LOGIN ══ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-hex">TR</div>
+      <div>
+        <div class="login-title">TITAN ROOFING</div>
+        <div class="login-sub">& CONSTRUCTION — ORBIT COMMAND</div>
+      </div>
+    </div>
+    <div id="login-err" class="login-err"></div>
+    <div class="login-field"><label>Email Address</label><input type="email" id="login-email" placeholder="you@titanroofer.com" autocomplete="email"></div>
+    <div class="login-field"><label>Password</label><input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"></div>
+    <button class="login-btn" onclick="doLogin()" id="login-btn">Sign In</button>
+    <p style="text-align:center;font-size:11px;color:rgba(255,255,255,.3);margin-top:14px">Need access? Contact Abel · 707-495-8685</p>
+  </div>
+</div>
+
+<!-- ══ ORBIT SHELL ══ -->
+<div id="orbit-shell">
+  <!-- SVG canvas for rings and lines -->
+  <svg id="orbit-svg"></svg>
+
+  <!-- Top bar -->
+  <div class="orbit-topbar">
+    <div class="orbit-logo">
+      <div class="orbit-hex">TR</div>
+      <div class="orbit-logo-text">
+        <h1>TITAN ROOFING</h1>
+        <p>ORBIT COMMAND · CA LIC. #769821</p>
+      </div>
+    </div>
+    <div class="orbit-topbar-right">
+      <div class="orbit-user-pill" id="orbit-user-pill">—</div>
+      <button class="orbit-logout" onclick="doLogout()">Sign Out</button>
+    </div>
+  </div>
+
+  <!-- Center Orb -->
+  <div id="center-orb">
+    <div class="orb-icon">🏠</div>
+    <div class="orb-label" id="orb-label">TITAN</div>
+    <div class="orb-total" id="orb-total" style="display:none"></div>
+    <div class="orb-hint" id="orb-hint">SELECT JOB</div>
+  </div>
+
+  <!-- Orbit Tabs (rendered by JS) -->
+
+  <!-- Jobs Panel -->
+  <div id="jobs-panel">
+    <div class="jobs-panel-hdr">
+      <div class="jobs-panel-title">📁 JOB SELECT</div>
+      <button class="jobs-panel-close" onclick="closeJobsPanel()">✕</button>
+    </div>
+    <div class="jobs-panel-search"><input type="text" placeholder="🔍 Search jobs..." oninput="filterOrbitJobs(this.value)" id="orbit-search"></div>
+    <div class="jobs-panel-actions">
+      <button class="panel-btn" onclick="newJobOrbit()">＋ New Job</button>
+    </div>
+    <div class="jobs-panel-list" id="orbit-jobs-list"><div class="jobs-empty">Loading...</div></div>
+  </div>
+
+  <!-- Status bar -->
+  <div class="orbit-statusbar">
+    <div class="status-item"><div class="status-dot" id="dot-db"></div>DATABASE</div>
+    <div class="status-item"><div class="status-dot active" id="dot-auth"></div>AUTHENTICATED</div>
+    <div class="status-item"><div class="status-dot" id="dot-job"></div>JOB LOADED</div>
+    <div class="status-item" id="status-saved" style="display:none"><div class="status-dot active"></div>AUTO-SAVE ON</div>
+  </div>
+
+  <div class="orbit-hint" id="orbit-hint-txt">CLICK TABS TO OPEN · DRAG TAB TO CENTER TO ACTIVATE</div>
+</div>
+
+<!-- ══ FULL APP LAYER ══ -->
+<div id="app-layer">
+  <!-- App Top Bar -->
+  <div class="app-topbar">
+    <div class="app-topbar-left">
+      <div class="app-hex">TR</div>
+      <div>
+        <div class="app-title">TITAN ROOFING</div>
+        <div class="app-subtitle">CA LIC. #769821</div>
+      </div>
+      <div style="width:1px;height:30px;background:rgba(255,255,255,.1);margin:0 4px"></div>
+      <div class="app-job-name" id="app-job-name-display">—</div>
+    </div>
+    <div class="app-topbar-right">
+      <div class="orbit-user-pill" id="app-user-pill" style="font-size:10px">—</div>
+      <button class="back-to-orbit" onclick="backToOrbit()">⬅ ORBIT</button>
+    </div>
+  </div>
+
+  <!-- Save bar -->
+  <div class="save-bar">
+    <input type="text" class="job-title-input" id="job-title-input" placeholder="Job Name / Address" oninput="markDirty()">
+    <div class="save-status saved" id="save-status">✓ Saved</div>
+    <button class="save-btn" onclick="saveCurrentJob()">💾 Save</button>
+    <button class="del-btn" onclick="deleteCurrentJob()">🗑 Delete</button>
+  </div>
+
+  <!-- Tab bar -->
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="project" onclick="switchTab('project')">📋 Project Info</button>
+    <button class="tab-btn" data-tab="takeoff" onclick="switchTab('takeoff')">📐 Takeoff</button>
+    <button class="tab-btn" data-tab="proposal" onclick="switchTab('proposal')">📄 Proposal</button>
+    <button class="tab-btn" data-tab="po" onclick="switchTab('po')">🛒 Purchase Order</button>
+    <button class="tab-btn" data-tab="invoices" onclick="switchTab('invoices')">💰 Invoices</button>
+    <button class="tab-btn" data-tab="lien" onclick="switchTab('lien')">📝 Lien Releases</button>
+    <button class="tab-btn" data-tab="co" onclick="switchTab('co')">🔧 Change Orders</button>
+  </div>
+
+  <div class="app-body">
+<!-- ══ TAB: PROJECT INFO ══ -->
+<div id="panel-project" class="tab-panel active">
+  <div class="card">
+    <div class="card-header"><h2>⚙️ Proposal Options</h2><span class="badge">Required First</span></div>
+    <div class="card-body">
+      <div class="form-grid-3">
+        <div class="field">
+          <label>Contract Type</label>
+          <select id="contractType" onchange="updateContractTypeInfo()">
+            <option value="roofing">Roofing (C39) — Max 10% or $1,000 deposit</option>
+            <option value="general">General Construction (B) — Max 20% deposit</option>
+          </select>
+          <div id="depositInfo" class="law-badge"><strong>⚖️ CA B&P Code §7159 — C39 Roofing</strong>Deposit may NOT exceed 10% of contract price OR $1,000 — whichever is LESS.</div>
+        </div>
+        <div class="field">
+          <label>Payment Structure</label>
+          <select id="paymentStructure">
+            <option value="3draw">3-Draw: Deposit / Material Delivery / Completion</option>
+            <option value="2draw">2-Draw: Deposit / Completion</option>
+            <option value="progress">Progress Billing (Monthly)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Workmanship Warranty</label>
+          <div class="warranty-grid">
+            <div class="war-card selected" onclick="selectWarranty('1')" id="war-1"><div class="war-years">1</div><div class="war-label">Year</div></div>
+            <div class="war-card" onclick="selectWarranty('2')" id="war-2"><div class="war-years">2</div><div class="war-label">Year</div></div>
+            <div class="war-card" onclick="selectWarranty('5')" id="war-5"><div class="war-years">5</div><div class="war-label">Year</div></div>
+            <div class="war-card" onclick="selectWarranty('10')" id="war-10"><div class="war-years">10</div><div class="war-label">Year</div><div class="war-price">+5%</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><h2>👤 Client Information</h2></div>
+    <div class="card-body">
+      <div class="form-grid-3">
+        <div class="field"><label>Client Type</label><select id="clientType"><option>Residential</option><option>Commercial</option><option>Industrial</option><option>HOA</option><option>Property Manager</option><option>Insurance Claim</option><option>Government</option></select></div>
+        <div class="field"><label>Client / Company Name</label><input type="text" id="clientName" placeholder="Full name or company"></div>
+        <div class="field"><label>Contact Name</label><input type="text" id="contactName"></div>
+        <div class="field"><label>Phone (Primary)</label><input type="tel" id="clientPhone" placeholder="707-000-0000"></div>
+        <div class="field"><label>Phone (Alt)</label><input type="tel" id="clientPhoneAlt"></div>
+        <div class="field"><label>Email</label><input type="email" id="clientEmail"></div>
+      </div>
+      <div class="section-label">Billing Address</div>
+      <div class="form-grid-3">
+        <div class="field"><label>Street</label><input type="text" id="billStreet"></div>
+        <div class="field"><label>City</label><input type="text" id="billCity"></div>
+        <div class="field"><label>ZIP</label><input type="text" id="billZip"></div>
+      </div>
+      <div class="section-label">Project / Installation Address</div>
+      <div class="form-grid-3">
+        <div class="field"><label>Street</label><input type="text" id="projStreet"></div>
+        <div class="field"><label>City</label><input type="text" id="projCity"></div>
+        <div class="field"><label>County</label><select id="projCounty"><option>Sonoma</option><option>Marin</option><option>Napa</option><option>Other</option></select></div>
+        <div class="field"><label>ZIP</label><input type="text" id="projZip"></div>
+        <div class="field"><label>Fire Zone (VHFHSZ)</label><select id="fireZone"><option>Unknown — Verify</option><option>Yes — VHFHSZ</option><option>No</option></select></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><h2>🏗️ Project Details</h2></div>
+    <div class="card-body">
+      <div class="form-grid-3">
+        <div class="field"><label>Project Name / Job #</label><input type="text" id="jobName"></div>
+        <div class="field"><label>Proposal Date</label><input type="date" id="propDate"></div>
+        <div class="field"><label>Valid Until</label><input type="date" id="validUntil"></div>
+        <div class="field"><label>Est. Start Date</label><input type="date" id="startDate"></div>
+        <div class="field"><label>Est. Completion</label><input type="date" id="endDate"></div>
+        <div class="field"><label>Project Manager</label><input type="text" id="projManager"></div>
+        <div class="field"><label>Foreman</label><input type="text" id="foreman"></div>
+        <div class="field"><label>AHJ / Permit Office</label><input type="text" id="ahj"></div>
+      </div>
+      <div class="section-label">Scope of Work</div>
+      <div class="field"><textarea id="scopeText" rows="5" placeholder="Full scope — this appears on the client proposal..."></textarea></div>
+      <div class="section-label">Internal Notes</div>
+      <div class="field"><textarea id="internalNotes" rows="3" placeholder="Internal only — not shown to client..."></textarea></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><h2>📸 Job Site Photos</h2><span class="badge">Saved with job</span></div>
+    <div class="card-body">
+      <div style="margin-bottom:10px;font-size:12px;color:#64748b">Tap to add photos from your camera roll or take a new photo. Stored locally with this job.</div>
+      <label for="photoUpload" style="display:inline-flex;align-items:center;gap:8px;background:#1B2A4A;color:#fff;border-radius:8px;padding:10px 18px;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.3px">
+        📷 Add Photos
+        <input type="file" id="photoUpload" accept="image/*" multiple capture="environment" style="display:none" onchange="handlePhotoUpload(event)">
+      </label>
+      <div id="photoGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px;margin-top:14px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ROOFSNAP IMPORT MODAL ══ -->
+<div id="roofsnap-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:16px;max-width:520px;width:95%;padding:28px;box-shadow:0 24px 60px rgba(0,0,0,.4);position:relative">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+      <div style="background:#1B2A4A;border-radius:10px;padding:10px 14px;font-size:22px">📋</div>
+      <div>
+        <div style="font-weight:800;font-size:16px;color:#1B2A4A;letter-spacing:-.3px">RoofSnap Import</div>
+        <div style="font-size:12px;color:#888">Paste measurements from your RoofSnap PDF report</div>
+      </div>
+      <button onclick="closeRoofSnapModal()" style="margin-left:auto;background:transparent;border:none;font-size:20px;cursor:pointer;color:#aaa;line-height:1">✕</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+      <div>
+        <label style="font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:4px">Total Roof Area (sq ft) *</label>
+        <input type="number" id="rs-sqft" placeholder="e.g. 778" style="width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:8px 10px;font-size:14px;box-sizing:border-box">
+      </div>
+      <div>
+        <label style="font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:4px">Waste Factor %</label>
+        <input type="number" id="rs-waste" placeholder="10" value="10" style="width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:8px 10px;font-size:14px;box-sizing:border-box">
+      </div>
+      <div>
+        <label style="font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:4px">Ridge LF</label>
+        <input type="number" id="rs-ridge" placeholder="e.g. 43" style="width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:8px 10px;font-size:14px;box-sizing:border-box">
+      </div>
+      <div>
+        <label style="font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:4px">Valley LF</label>
+        <input type="number" id="rs-valley" placeholder="e.g. 1" style="width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:8px 10px;font-size:14px;box-sizing:border-box">
+      </div>
+      <div>
+        <label style="font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:4px">Eave LF</label>
+        <input type="number" id="rs-eave" placeholder="e.g. 86" style="width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:8px 10px;font-size:14px;box-sizing:border-box">
+      </div>
+      <div>
+        <label style="font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:4px">Rake LF</label>
+        <input type="number" id="rs-rake" placeholder="e.g. 69" style="width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:8px 10px;font-size:14px;box-sizing:border-box">
+      </div>
+      <div>
+        <label style="font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:4px">Hip LF</label>
+        <input type="number" id="rs-hip" placeholder="e.g. 0" style="width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:8px 10px;font-size:14px;box-sizing:border-box">
+      </div>
+      <div>
+        <label style="font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:4px">Step Flashing LF</label>
+        <input type="number" id="rs-step" placeholder="e.g. 17" style="width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:8px 10px;font-size:14px;box-sizing:border-box">
+      </div>
+      <div>
+        <label style="font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:4px">Primary Pitch</label>
+        <input type="text" id="rs-pitch" placeholder="e.g. 4:12" style="width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:8px 10px;font-size:14px;box-sizing:border-box">
+      </div>
+      <div>
+        <label style="font-size:10px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:4px">Gutters LF (= Eave if yes)</label>
+        <input type="number" id="rs-gutters" placeholder="e.g. 86 or 0" style="width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:8px 10px;font-size:14px;box-sizing:border-box">
+      </div>
+    </div>
+    <div style="background:#f8f9fa;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#666">
+      💡 <strong>Tip:</strong> Find these numbers on page 4 of your RoofSnap PDF — the <em>Measurements</em> page.
+    </div>
+    <div style="display:flex;gap:10px">
+      <button onclick="closeRoofSnapModal()" style="flex:1;padding:11px;border:1.5px solid #e0e0e0;background:#fff;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;color:#666">Cancel</button>
+      <button onclick="applyRoofSnapImport()" style="flex:2;padding:11px;background:#1B2A4A;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.3px">⬇ Import to Takeoff</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB: TAKEOFF ══ -->
+<div id="panel-takeoff" class="tab-panel">
+  <div class="card">
+    <div class="card-header"><h2>📐 Roof Measurements</h2><button onclick="openRoofSnapModal()" style="margin-left:auto;background:#34d399;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-weight:700;font-size:12px;cursor:pointer;letter-spacing:.4px;display:flex;align-items:center;gap:6px">📋 RoofSnap Import</button></div>
+    <div class="card-body">
+      <div class="form-grid-3">
+        <div class="field"><label>Total Roof Area (sq ft)</label><input type="number" id="roofSqFt" placeholder="0" oninput="calcSquares()"><div class="hint">Total measured area all planes</div></div>
+        <div class="field"><label>Roof Squares (auto)</label><input type="text" id="roofSquares" readonly placeholder="0.00" style="background:var(--gray-100);color:var(--green);font-family:'JetBrains Mono',monospace;font-weight:600"></div>
+        <div class="field"><label>Waste Factor %</label><input type="number" id="wasteFactor" value="10" min="0" max="30"></div>
+        <div class="field"><label>Ridge Linear Feet</label><input type="number" id="ridgeLF" placeholder="0"></div>
+        <div class="field"><label>Valley Linear Feet</label><input type="number" id="valleyLF" placeholder="0"></div>
+        <div class="field"><label>Eave Linear Feet</label><input type="number" id="eaveLF" placeholder="0" oninput="autoCalcGutters()"></div>
+        <div class="field"><label>Rake Linear Feet</label><input type="number" id="rakeLF" placeholder="0"></div>
+        <div class="field"><label>Hip Linear Feet</label><input type="number" id="hipLF" placeholder="0"></div>
+        <div class="field"><label>Step Flashing LF</label><input type="number" id="stepLF" placeholder="0"></div>
+        <div class="field"><label>Roof Pitch</label><input type="text" id="roofPitch" placeholder="6:12"></div>
+        <div class="field"><label>Skylights</label><input type="number" id="numSkylights" placeholder="0"></div>
+        <div class="field"><label>Chimneys</label><input type="number" id="numChimneys" placeholder="0"></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><h2>⚡ Difficulty Level</h2><span class="badge">Sets all unit prices</span></div>
+    <div class="card-body">
+      <div class="difficulty-grid">
+        <div class="diff-card diff-easy" onclick="selectDifficulty('easy')" id="diff-easy"><div class="diff-icon">🟢</div><div class="diff-name">EASY</div><div class="diff-desc">Simple rooflines · ≤6:12 · Good access</div></div>
+        <div class="diff-card diff-moderate selected" onclick="selectDifficulty('moderate')" id="diff-moderate"><div class="diff-icon">🟡</div><div class="diff-name">MODERATE</div><div class="diff-desc">Average complexity · 7:12–9:12 pitch</div></div>
+        <div class="diff-card diff-complex" onclick="selectDifficulty('complex')" id="diff-complex"><div class="diff-icon">🔴</div><div class="diff-name">COMPLEX</div><div class="diff-desc">Steep >9:12 · Premium · VHFHSZ</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="summary-strip">
+    <div class="sum-card mat"><label>Materials Total</label><div class="sum-val" id="sumMat">$0.00</div></div>
+    <div class="sum-card lab"><label>Labor Total</label><div class="sum-val" id="sumLab">$0.00</div></div>
+    <div class="sum-card tot"><label>Grand Total</label><div class="sum-val" id="sumGrand">$0.00</div></div>
+    <div class="sum-card dep"><label>Max Deposit (CA Law)</label><div class="sum-val" id="sumDeposit">$0.00</div></div>
+  </div>
+  <div class="takeoff-section">
+    <div class="takeoff-section-hdr">🧱 MATERIALS TAKEOFF</div>
+    <table class="takeoff-table"><thead><tr><th style="width:28px">#</th><th>Material / Product</th><th>Category</th><th style="width:78px">Qty</th><th style="width:48px">Unit</th><th style="width:96px">Unit Price</th><th style="width:96px">Line Total</th><th>Notes</th></tr></thead><tbody id="matBody"></tbody></table>
+  </div>
+  <div class="takeoff-section">
+    <div class="takeoff-section-hdr">👷 LABOR TAKEOFF</div>
+    <table class="takeoff-table"><thead><tr><th style="width:28px">#</th><th>Service / Work Type</th><th>Category</th><th style="width:78px">Qty</th><th style="width:48px">Unit</th><th style="width:96px">Rate</th><th style="width:96px">Line Total</th></tr></thead><tbody id="labBody"></tbody></table>
+  </div>
+  <div class="totals-panel">
+    <div class="card-header"><h2>💵 Project Totals</h2></div>
+    <div class="totals-inner">
+      <div class="total-line"><span>Materials Subtotal</span><span id="t-mat" style="font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--green)">$0.00</span></div>
+      <div class="total-line"><span>Labor Subtotal</span><span id="t-lab" style="font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--navy)">$0.00</span></div>
+      <div class="total-line"><span>Subtotal</span><span id="t-sub" style="font-family:'JetBrains Mono',monospace;font-weight:600">$0.00</span></div>
+      <div class="total-line"><span>Tax Rate (materials) <input type="number" class="rate-input" id="taxRate" value="0" step="0.1" min="0" max="15" oninput="calcTotals()">%</span><span id="t-tax" style="font-family:'JetBrains Mono',monospace">$0.00</span></div>
+      <div class="total-line"><span>Markup / Overhead <input type="number" class="rate-input" id="markupRate" value="15" step="1" min="0" max="50" oninput="calcTotals()">%</span><span id="t-markup" style="font-family:'JetBrains Mono',monospace">$0.00</span></div>
+      <div class="total-line" id="t-warprem-line" style="display:none"><span>10-Year Warranty Premium (5%)</span><span id="t-warprem" style="font-family:'JetBrains Mono',monospace;color:var(--orange)">$0.00</span></div>
+      <div class="total-line" id="t-override-line" style="display:none;background:#fff8e1;border-left:3px solid var(--orange);padding-left:8px;margin:4px -16px;padding-right:16px">
+        <span style="color:var(--orange);font-weight:700;font-size:12px">⚠ INTERNAL: Calculated total is <span id="t-calc-display">$0.00</span> — Negotiated price is <span id="t-savings-display" style="color:var(--red)"></span> lower</span>
+      </div>
+      <div class="total-line grand"><span>PROPOSAL TOTAL</span><span id="t-grand">$0.00</span></div>
+      <div style="padding:10px 0 0;border-top:1px solid rgba(255,255,255,.1);margin-top:4px">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <label style="font-size:11px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.5px">Override Contract Price:</label>
+          <input type="number" id="contractOverride" placeholder="Leave blank to use calculated" style="width:150px;border:1.5px solid var(--gray-200);border-radius:6px;padding:5px 9px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--navy)" oninput="calcTotals();markDirty()">
+          <button onclick="document.getElementById('contractOverride').value='';calcTotals();markDirty();" style="background:transparent;border:1px solid var(--gray-200);border-radius:6px;padding:4px 9px;font-size:11px;cursor:pointer;color:var(--gray-600)">✕ Clear</button>
+          <span style="font-size:10px;color:var(--gray-400);max-width:200px;line-height:1.4">Internal only — overrides calculated total without showing discount</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB: PROPOSAL ══ -->
+<div id="panel-proposal" class="tab-panel">
+  <div class="btn-row" style="margin-bottom:14px">
+    <button class="btn btn-primary" onclick="generateProposal()">⚡ Generate Proposal</button>
+    <button class="btn btn-navy" onclick="printProposal()">🖨️ Print / PDF</button>
+    <button class="btn" style="background:#10b981;color:#fff;border:none" onclick="emailProposal()">📧 Email to Client</button>
+    <div style="font-size:11px;color:#64748b;padding:7px 11px;background:#f0f9ff;border-radius:8px;border-left:3px solid #3b82f6">📱 iPhone: Share ⬆ → Print &nbsp;|&nbsp; 💻 Mac: Cmd+P</div>
+    <button class="btn btn-ghost" onclick="switchTab('takeoff')">← Takeoff</button>
+  </div>
+  <div id="proposalOutput">
+    <div style="text-align:center;padding:60px;color:var(--gray-400)">
+      <div style="font-size:44px;margin-bottom:14px">📄</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--gray-600)">Proposal Not Yet Generated</div>
+      <p style="margin-top:6px;font-size:13px">Fill out Project Info and Takeoff, then click Generate</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB: PURCHASE ORDER ══ -->
+<div id="panel-po" class="tab-panel">
+  <div class="card">
+    <div class="card-header"><h2>🛒 Purchase Order</h2><span class="badge">For Suppliers</span></div>
+    <div class="card-body">
+      <div class="form-grid-3">
+        <div class="field"><label>PO Number</label><input type="text" id="poNumber" placeholder="PO-2026-001"></div>
+        <div class="field"><label>PO Date</label><input type="date" id="poDate"></div>
+        <div class="field"><label>Supplier Name</label><input type="text" id="supplierName"></div>
+        <div class="field"><label>Supplier Contact</label><input type="text" id="supplierContact"></div>
+        <div class="field"><label>Supplier Phone</label><input type="tel" id="supplierPhone"></div>
+        <div class="field"><label>Account #</label><input type="text" id="supplierAcct"></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="generatePO()">⚡ Generate PO</button>
+        <button class="btn btn-navy" onclick="printPO()">🖨️ Print PO</button>
+      </div>
+      <div id="poOutput" style="margin-top:18px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB: INVOICE TRACKER ══ -->
+<div id="panel-invoices" class="tab-panel">
+  <div class="summary-strip">
+    <div class="sum-card mat"><label>Contract Total</label><div class="sum-val" id="inv-contract">$0.00</div></div>
+    <div class="sum-card lab"><label>Total Invoiced</label><div class="sum-val" id="inv-total">$0.00</div></div>
+    <div class="sum-card tot"><label>Total Received</label><div class="sum-val" id="inv-received">$0.00</div></div>
+    <div class="sum-card dep"><label>Balance Due</label><div class="sum-val" id="inv-balance">$0.00</div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><h2>💰 Invoice Log</h2>
+      <div style="margin-left:auto;display:flex;gap:8px">
+        <button class="btn btn-navy btn-sm" onclick="printInvoiceLog()">🖨️ Print Invoice</button>
+        <button class="btn btn-primary btn-sm" onclick="addInvoiceRow()">+ Add Row</button>
+      </div>
+    </div>
+    <div class="card-body" style="padding:0;overflow-x:auto">
+      <table class="invoice-table">
+        <thead><tr><th>Inv #</th><th>Description / Draw</th><th>Inv Date</th><th>Due Date</th><th>Amount</th><th>Status</th><th>Received</th><th>Paid Date</th><th>Balance</th><th>Cond.</th><th>Uncond.</th><th></th></tr></thead>
+        <tbody id="invoiceBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB: LIEN RELEASES ══ -->
+<div id="panel-lien" class="tab-panel">
+  <div class="card">
+    <div class="card-header"><h2>📝 Lien Release Generator</h2><span class="badge">CA Civil Code §8132–§8138</span></div>
+    <div class="card-body">
+      <div class="form-grid-3">
+        <div class="field"><label>Invoice / Draw #</label><input type="text" id="lienInvNum"></div>
+        <div class="field"><label>Payment Amount</label><input type="number" id="lienAmount" placeholder="0.00"></div>
+        <div class="field"><label>Through Date</label><input type="date" id="lienThruDate"></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-green" onclick="generateLien('conditional')">📄 Conditional (Progress)</button>
+        <button class="btn btn-navy" onclick="generateLien('unconditional')">📄 Unconditional (Progress)</button>
+        <button class="btn btn-primary" onclick="generateLien('final')">📄 Final Unconditional</button>
+      </div>
+      <div id="lienOutput" style="margin-top:18px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB: CHANGE ORDERS ══ -->
+<div id="panel-co" class="tab-panel">
+  <div class="card">
+    <div class="card-header"><h2>🔧 Change Order / Extra Work</h2><span class="badge">CO</span>
+      <div style="margin-left:auto;display:flex;gap:8px">
+        <button class="btn btn-navy btn-sm" onclick="printCO()">🖨️ Print CO</button>
+        <button class="btn btn-primary btn-sm" onclick="addCORow()">+ Add Line</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="form-grid-3" style="margin-bottom:14px">
+        <div class="field"><label>CO Number</label><input type="text" id="coNumber" placeholder="CO-001" oninput="markDirty()"></div>
+        <div class="field"><label>CO Date</label><input type="date" id="coDate" oninput="markDirty()"></div>
+        <div class="field"><label>Requested By</label><input type="text" id="coRequestedBy" placeholder="Client / GC name" oninput="markDirty()"></div>
+      </div>
+      <div class="field" style="margin-bottom:14px">
+        <label>Description of Extra Work</label>
+        <textarea id="coDescription" rows="3" placeholder="Describe the extra work or change in scope..." oninput="markDirty()"></textarea>
+      </div>
+      <table class="takeoff-table" style="margin-bottom:14px">
+        <thead><tr><th>Description</th><th style="width:85px">Qty</th><th style="width:55px">Unit</th><th style="width:105px">Unit Price</th><th style="width:105px">Line Total</th><th style="width:38px"></th></tr></thead>
+        <tbody id="coBody"></tbody>
+      </table>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:14px">
+        <div style="background:var(--navy);color:white;padding:13px 22px;border-radius:var(--radius-lg);min-width:250px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:7px;font-size:13px;opacity:.8"><span>Original Contract</span><span id="co-orig-total" style="font-family:'JetBrains Mono',monospace">$0.00</span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:7px;font-size:13px;opacity:.8"><span>This Change Order</span><span id="co-this-total" style="font-family:'JetBrains Mono',monospace;color:var(--gold)">$0.00</span></div>
+          <div style="display:flex;justify-content:space-between;padding-top:7px;border-top:1px solid rgba(255,255,255,.2);font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px"><span>REVISED CONTRACT</span><span id="co-revised-total" style="color:var(--gold)">$0.00</span></div>
+        </div>
+      </div>
+      <div id="coOutput"></div>
+    </div>
+  </div>
+</div>
+
+  </div><!-- /app-body -->
+</div><!-- /app-layer -->
+<script>
+// ══════════════════════════════════════════════════════════════
+// SUPABASE
+// ══════════════════════════════════════════════════════════════
+const SUPABASE_URL = 'https://hniesqfmiaqxfdyjlakr.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhuaWVzcWZtaWFxeGZkeWpsYWtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5OTgzNzcsImV4cCI6MjA4ODU3NDM3N30.Jc6sNX8jpyFSKFCsoP2V6IWzoSu3zvm7VUT0QItKIaY';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ══════════════════════════════════════════════════════════════
+// ORBIT STATE
+// ══════════════════════════════════════════════════════════════
+const ORBIT_TABS = [
+  {id:'jobs',   emoji:'📁', label:'JOBS',     angle:270, color:'#60a5fa'},
+  {id:'project',emoji:'📋', label:'PROJECT',  angle:330, color:'#C9A84C'},
+  {id:'takeoff',emoji:'📐', label:'TAKEOFF',  angle:30,  color:'#34d399'},
+  {id:'proposal',emoji:'📄',label:'PROPOSAL', angle:90,  color:'#f87171'},
+  {id:'docs',   emoji:'📝', label:'DOCS',     angle:150, color:'#a78bfa'},
+  {id:'finance',emoji:'💰', label:'FINANCE',  angle:210, color:'#fb923c'},
+];
+
+const DOC_TAB_MAP = {
+  project:'project', takeoff:'takeoff', proposal:'proposal',
+  docs:'lien', finance:'invoices'
+};
+
+let orbitCenter = {x:0, y:0};
+let orbitRadius = 200;
+let tabEls = {};
+let tabPositions = {};
+let draggingTab = null;
+let dragOffset = {x:0, y:0};
+let hoveredCenter = false;
+let orbitSearchQuery = '';
+
+function initOrbit() {
+  const shell = document.getElementById('orbit-shell');
+  const rect = shell.getBoundingClientRect();
+  orbitCenter = {x: rect.width/2, y: rect.height/2};
+  orbitRadius = Math.min(rect.width, rect.height) * 0.27;
+  orbitRadius = Math.max(140, Math.min(orbitRadius, 230));
+
+  // Position center orb
+  const orb = document.getElementById('center-orb');
+  orb.style.left = orbitCenter.x + 'px';
+  orb.style.top  = orbitCenter.y + 'px';
+
+  // Draw SVG rings
+  drawRings();
+
+  // Create tab elements
+  ORBIT_TABS.forEach(tab => createTabEl(tab));
+  positionAllTabs();
+}
+
+function drawRings() {
+  const svg = document.getElementById('orbit-svg');
+  const cx = orbitCenter.x, cy = orbitCenter.y;
+  svg.innerHTML = '';
+
+  // Outer decorative ring
+  const outerR = orbitRadius * 1.35;
+  addSvgEl(svg, 'circle', {cx, cy, r: outerR, fill:'none',
+    stroke:'rgba(201,168,76,0.05)', 'stroke-width':'1', 'stroke-dasharray':'3 8'});
+
+  // Main orbit ring
+  addSvgEl(svg, 'circle', {cx, cy, r: orbitRadius, fill:'none',
+    stroke:'rgba(201,168,76,0.12)', 'stroke-width':'1', 'stroke-dasharray':'4 6'});
+
+  // Inner ring
+  addSvgEl(svg, 'circle', {cx, cy, r: orbitRadius * 0.55, fill:'none',
+    stroke:'rgba(201,168,76,0.06)', 'stroke-width':'1'});
+
+  // Cross hairs
+  ['0','90','180','270'].forEach(a => {
+    const rad = (a - 90) * Math.PI / 180;
+    const x1 = cx + orbitRadius * 0.58 * Math.cos(rad);
+    const y1 = cy + orbitRadius * 0.58 * Math.sin(rad);
+    const x2 = cx + outerR * Math.cos(rad);
+    const y2 = cy + outerR * Math.sin(rad);
+    addSvgEl(svg, 'line', {x1, y1, x2, y2,
+      stroke:'rgba(201,168,76,0.07)', 'stroke-width':'1'});
+  });
+
+  // Connector lines from center to each tab position
+  ORBIT_TABS.forEach(tab => {
+    const pos = getDefaultPos(tab.angle);
+    addSvgEl(svg, 'line', {
+      x1: cx, y1: cy, x2: pos.x, y2: pos.y,
+      stroke: 'rgba(201,168,76,0.1)', 'stroke-width':'1',
+      'stroke-dasharray':'3 5',
+      id: 'line-' + tab.id
+    });
+  });
+}
+
+function addSvgEl(svg, tag, attrs) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  Object.entries(attrs).forEach(([k,v]) => el.setAttribute(k, v));
+  svg.appendChild(el);
+  return el;
+}
+
+function getDefaultPos(angle) {
+  const rad = (angle - 90) * Math.PI / 180;
+  return {
+    x: orbitCenter.x + orbitRadius * Math.cos(rad),
+    y: orbitCenter.y + orbitRadius * Math.sin(rad)
+  };
+}
+
+function createTabEl(tab) {
+  const div = document.createElement('div');
+  div.className = 'orbit-tab';
+  div.id = 'otab-' + tab.id;
+  div.innerHTML = `
+    <div class="orbit-tab-inner">
+      <div class="tab-emoji">${tab.emoji}</div>
+      <div class="tab-label" style="color:${tab.color}">${tab.label}</div>
+    </div>`;
+
+  div.addEventListener('mousedown', e => startDrag(e, tab.id));
+  div.addEventListener('touchstart', e => startDragTouch(e, tab.id), {passive:false});
+  div.addEventListener('click', e => {
+    if (!wasDragging) handleTabClick(tab.id);
+  });
+
+  document.getElementById('orbit-shell').appendChild(div);
+  tabEls[tab.id] = div;
+}
+
+function positionAllTabs() {
+  ORBIT_TABS.forEach(tab => {
+    if (!tabPositions[tab.id]) {
+      tabPositions[tab.id] = getDefaultPos(tab.angle);
+    }
+    placeTab(tab.id, tabPositions[tab.id]);
+  });
+}
+
+function placeTab(id, pos) {
+  const el = tabEls[id];
+  if (!el) return;
+  el.style.left = pos.x + 'px';
+  el.style.top  = pos.y + 'px';
+  // update connector line
+  const line = document.getElementById('line-' + id);
+  if (line) { line.setAttribute('x2', pos.x); line.setAttribute('y2', pos.y); }
+}
+
+// ─── Drag ───
+let wasDragging = false;
+
+function startDrag(e, tabId) {
+  e.preventDefault();
+  const pos = tabPositions[tabId] || getDefaultPos(ORBIT_TABS.find(t=>t.id===tabId).angle);
+  const shell = document.getElementById('orbit-shell').getBoundingClientRect();
+  dragOffset = {x: e.clientX - shell.left - pos.x, y: e.clientY - shell.top - pos.y};
+  draggingTab = tabId;
+  wasDragging = false;
+  tabEls[tabId].classList.add('dragging');
+  document.addEventListener('mousemove', onDragMove);
+  document.addEventListener('mouseup', onDragEnd);
+}
+
+function startDragTouch(e, tabId) {
+  e.preventDefault();
+  const t = e.touches[0];
+  const pos = tabPositions[tabId] || getDefaultPos(ORBIT_TABS.find(t=>t.id===tabId).angle);
+  const shell = document.getElementById('orbit-shell').getBoundingClientRect();
+  dragOffset = {x: t.clientX - shell.left - pos.x, y: t.clientY - shell.top - pos.y};
+  draggingTab = tabId;
+  wasDragging = false;
+  tabEls[tabId].classList.add('dragging');
+  document.addEventListener('touchmove', onDragMoveTouch, {passive:false});
+  document.addEventListener('touchend', onDragEndTouch);
+}
+
+function onDragMove(e) {
+  if (!draggingTab) return;
+  wasDragging = true;
+  const shell = document.getElementById('orbit-shell').getBoundingClientRect();
+  const nx = e.clientX - shell.left - dragOffset.x;
+  const ny = e.clientY - shell.top  - dragOffset.y;
+  tabPositions[draggingTab] = {x: nx, y: ny};
+  placeTab(draggingTab, {x: nx, y: ny});
+  // check center proximity
+  const dx = nx - orbitCenter.x, dy = ny - orbitCenter.y;
+  const dist = Math.sqrt(dx*dx + dy*dy);
+  const orb = document.getElementById('center-orb');
+  if (dist < 80) { orb.classList.add('drop-ready'); hoveredCenter = true; }
+  else { orb.classList.remove('drop-ready'); hoveredCenter = false; }
+}
+
+function onDragMoveTouch(e) {
+  e.preventDefault();
+  const t = e.touches[0];
+  const synth = {clientX: t.clientX, clientY: t.clientY};
+  onDragMove(synth);
+}
+
+function onDragEnd() {
+  if (!draggingTab) return;
+  document.removeEventListener('mousemove', onDragMove);
+  document.removeEventListener('mouseup', onDragEnd);
+  const tabId = draggingTab;
+  const pos = tabPositions[tabId];
+  tabEls[tabId].classList.remove('dragging');
+  document.getElementById('center-orb').classList.remove('drop-ready');
+  draggingTab = null;
+
+  if (hoveredCenter && pos) {
+    hoveredCenter = false;
+    // Snap back to orbit
+    tabPositions[tabId] = getDefaultPos(ORBIT_TABS.find(t=>t.id===tabId).angle);
+    placeTab(tabId, tabPositions[tabId]);
+    handleTabActivate(tabId);
+  }
+  setTimeout(() => { wasDragging = false; }, 50);
+}
+
+function onDragEndTouch() {
+  document.removeEventListener('touchmove', onDragMoveTouch);
+  document.removeEventListener('touchend', onDragEndTouch);
+  onDragEnd();
+}
+
+// ─── Tab interactions ───
+function handleTabClick(tabId) {
+  if (tabId === 'jobs') { toggleJobsPanel(); return; }
+  if (!currentJobId) { showToast('⚠️ Select a job first', '#E07B39'); return; }
+  openAppLayer(tabId);
+}
+
+function handleTabActivate(tabId) {
+  if (tabId === 'jobs') { openJobsPanel(); return; }
+  if (!currentJobId) { showToast('⚠️ Drag JOBS to center first', '#E07B39'); return; }
+  openAppLayer(tabId);
+}
+
+let jobsPanelOpen = false;
+function toggleJobsPanel() { jobsPanelOpen ? closeJobsPanel() : openJobsPanel(); }
+function openJobsPanel() {
+  jobsPanelOpen = true;
+  document.getElementById('jobs-panel').style.display = 'flex';
+  tabEls['jobs'].classList.add('active');
+}
+function closeJobsPanel() {
+  jobsPanelOpen = false;
+  document.getElementById('jobs-panel').style.display = 'none';
+  tabEls['jobs'].classList.remove('active');
+}
+
+function openAppLayer(tabId) {
+  const appLayer = document.getElementById('app-layer');
+  appLayer.style.display = 'flex';
+  setTimeout(() => appLayer.classList.add('visible'), 20);
+  // Switch to the right tab
+  const appTab = DOC_TAB_MAP[tabId] || 'project';
+  switchTab(appTab);
+  tabEls[tabId] && tabEls[tabId].classList.add('active');
+}
+
+function backToOrbit() {
+  const appLayer = document.getElementById('app-layer');
+  appLayer.classList.remove('visible');
+  setTimeout(() => { appLayer.style.display = 'none'; }, 500);
+  ORBIT_TABS.forEach(t => tabEls[t.id] && tabEls[t.id].classList.remove('active'));
+  updateOrbDisplay();
+}
+
+function updateOrbDisplay() {
+  const orb = document.getElementById('center-orb');
+  const label = document.getElementById('orb-label');
+  const total = document.getElementById('orb-total');
+  const hint  = document.getElementById('orb-hint');
+  if (currentJobId) {
+    const job = allJobs.find(j => j.id === currentJobId);
+    label.textContent = job ? (job.title || 'JOB LOADED').substring(0,14).toUpperCase() : 'ORBIT';
+    const T = calcTotals();
+    if (T && T.grand > 0) {
+      total.style.display = 'block';
+      total.textContent = '$' + Math.round(T.grand).toLocaleString();
+    }
+    hint.textContent = 'CLICK TAB TO OPEN';
+    document.getElementById('dot-job').classList.add('active');
+    document.getElementById('status-saved').style.display = 'flex';
+  } else {
+    label.textContent = 'TITAN';
+    total.style.display = 'none';
+    hint.textContent = 'SELECT JOB';
+  }
+}
+
+window.addEventListener('resize', () => {
+  const shell = document.getElementById('orbit-shell');
+  if (!shell || shell.style.display === 'none') return;
+  tabPositions = {};
+  initOrbit();
+});
+
+// ══════════════════════════════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════════════════════════════
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-password').value;
+  const btn   = document.getElementById('login-btn');
+  const err   = document.getElementById('login-err');
+  err.style.display = 'none';
+  btn.innerHTML = '<span class="spinner"></span> Signing in...';
+  btn.disabled = true;
+  const { error } = await sb.auth.signInWithPassword({ email, password: pass });
+  if (error) {
+    err.textContent = error.message; err.style.display = 'block';
+    btn.innerHTML = 'Sign In'; btn.disabled = false;
+  }
+}
+async function doLogout() { await sb.auth.signOut(); }
+
+sb.auth.onAuthStateChange(async (event, session) => {
+  if (session) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('orbit-shell').style.display = 'block';
+    const name = session.user.user_metadata?.full_name || session.user.email.split('@')[0];
+    document.getElementById('orbit-user-pill').textContent = '👤 ' + name;
+    document.getElementById('app-user-pill').textContent = '👤 ' + name;
+    document.getElementById('dot-auth').classList.add('active');
+    await loadJobs();
+    buildTables(); calcTotals(); updateContractTypeInfo();
+    setTimeout(initOrbit, 100);
+  } else {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('orbit-shell').style.display = 'none';
+    document.getElementById('app-layer').style.display = 'none';
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('login-password').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+  const today = new Date().toISOString().split('T')[0];
+  const d30 = new Date(); d30.setDate(d30.getDate()+30);
+  const pdate = document.getElementById('propDate'); if(pdate) pdate.value = today;
+  const vdate = document.getElementById('validUntil'); if(vdate) vdate.value = d30.toISOString().split('T')[0];
+  const podate = document.getElementById('poDate'); if(podate) podate.value = today;
+});
+
+// ══════════════════════════════════════════════════════════════
+// JOBS
+// ══════════════════════════════════════════════════════════════
+let allJobs=[], currentJobId=null, isDirty=false, saveTimer=null, orbitSearchQ='', rowCounter=0;
+let jobPhotos = [];
+
+async function loadJobs() {
+  const { data, error } = await sb.from('jobs').select('*').order('updated_at',{ascending:false});
+  if (error) { showToast('DB Error: '+error.message,'#C0392B'); return; }
+  allJobs = data || [];
+  document.getElementById('dot-db').classList.add('active');
+  renderOrbitJobs();
+}
+
+function filterOrbitJobs(q) { orbitSearchQ = q.toLowerCase(); renderOrbitJobs(); }
+
+function renderOrbitJobs() {
+  const list = document.getElementById('orbit-jobs-list');
+  const q = orbitSearchQ;
+  const filtered = allJobs.filter(j => !q ||
+    (j.title||'').toLowerCase().includes(q) ||
+    (j.data?.clientName||'').toLowerCase().includes(q) ||
+    (j.data?.projStreet||'').toLowerCase().includes(q));
+  if (!filtered.length) { list.innerHTML='<div class="jobs-empty">'+(q?'No matches':'No jobs yet — tap New Job')+'</div>'; return; }
+  list.innerHTML = filtered.map(j => {
+    const active = j.id===currentJobId?' active':'';
+    const grand = j.data?.grand ? '$'+Number(j.data.grand).toLocaleString('en-US',{maximumFractionDigits:0}) : '';
+    const client = j.data?.clientName||'';
+    const date = j.updated_at ? new Date(j.updated_at).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '';
+    return `<div class="job-orbit-item${active}" onclick="selectOrbitJob('${j.id}')">
+      <div>
+        <div class="job-name">${escHtml(j.title||'Untitled')}</div>
+        <div class="job-meta">${escHtml(client)}${date?' · '+date:''}</div>
+      </div>
+      ${grand?`<div class="job-total">${grand}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+async function selectOrbitJob(id) {
+  if (isDirty && currentJobId) await saveCurrentJob();
+  currentJobId = id;
+  const job = allJobs.find(j=>j.id===id);
+  if (!job) return;
+  const d = job.data || {};
+  const FIELDS = ['clientType','clientName','contactName','clientPhone','clientPhoneAlt','clientEmail',
+    'billStreet','billCity','billZip','projStreet','projCity','projCounty','projZip','fireZone',
+    'jobName','propDate','validUntil','startDate','endDate','projManager','foreman','ahj',
+    'scopeText','internalNotes','contractType','paymentStructure','roofSqFt','wasteFactor',
+    'ridgeLF','valleyLF','eaveLF','rakeLF','hipLF','stepLF','roofPitch','numSkylights','numChimneys',
+    'taxRate','markupRate','poNumber','poDate','supplierName','supplierContact','supplierPhone','supplierAcct',
+    'lienInvNum','lienAmount','lienThruDate'];
+  FIELDS.forEach(f => { const el=document.getElementById(f); if(el&&d[f]!==undefined) el.value=d[f]; });
+  const oe = document.getElementById('contractOverride'); if(oe) oe.value = d.contractOverride||'';
+  const ti = document.getElementById('job-title-input'); if(ti) ti.value = job.title||'';
+  const aJN = document.getElementById('app-job-name-display'); if(aJN) aJN.textContent = job.title||'—';
+  difficulty = d.difficulty||'moderate';
+  document.querySelectorAll('.diff-card').forEach(c=>c.classList.remove('selected'));
+  const dc = document.getElementById('diff-'+difficulty); if(dc) dc.classList.add('selected');
+  warranty = d.warranty||'1';
+  document.querySelectorAll('.war-card').forEach(c=>c.classList.remove('selected'));
+  const wc = document.getElementById('war-'+warranty); if(wc) wc.classList.add('selected');
+  matQty=d.matQty||{}; labQty=d.labQty||{};
+  customMatNames=d.customMatNames||{}; customMatPrices=d.customMatPrices||{};
+  customLabNames=d.customLabNames||{}; customLabPrices=d.customLabPrices||{};
+  const coFields=['coNumber','coDate','coRequestedBy','coDescription'];
+  coFields.forEach(f=>{const el=document.getElementById(f);if(el&&d[f]!==undefined)el.value=d[f];});
+  document.getElementById('coBody').innerHTML='';
+  coRows=d.coRows||[];
+  if(coRows.length) coRows.forEach(r=>addCORow(r)); else addCORow();
+  updateCOTotals();
+  buildTables(); calcTotals(); calcSquares(); updateContractTypeInfo();
+  document.getElementById('invoiceBody').innerHTML='';
+  const irows=d.invoiceRows||[];
+  if(irows.length) irows.forEach(r=>addInvoiceRow(r)); else addInvoiceRow();
+  updateInvoiceSummary();
+  // Restore photos
+  jobPhotos = d.photos || [];
+  renderPhotoGrid();
+  setSaveStatus('saved'); isDirty=false;
+  renderOrbitJobs();
+  updateOrbDisplay();
+  closeJobsPanel();
+  showToast('✓ Loaded: ' + (job.title||'Job'));
+}
+
+async function newJobOrbit() {
+  const {data:{user}} = await sb.auth.getUser();
+  if (!user) return;
+  const newTitle = 'New Job — '+new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  const {data, error} = await sb.from('jobs').insert({title:newTitle,created_by:user.id,data:{}}).select().single();
+  if (error) { showToast('Create failed: '+error.message,'#C0392B'); return; }
+  allJobs.unshift(data);
+  renderOrbitJobs();
+  await selectOrbitJob(data.id);
+  setTimeout(() => openAppLayer('project'), 300);
+}
+
+async function saveCurrentJob() {
+  if (!currentJobId) return;
+  setSaveStatus('saving');
+  const {data:{user}} = await sb.auth.getUser();
+  const d = collectFormData();
+  const T = calcTotals();
+  d.grand = T ? T.grand : 0;
+  d.lastSavedBy = user.user_metadata?.full_name || user.email.split('@')[0];
+  const title = document.getElementById('job-title-input').value.trim()||'Untitled Job';
+  const {error} = await sb.from('jobs').update({title, data:d, updated_at: new Date().toISOString()}).eq('id',currentJobId);
+  if (error) { setSaveStatus('error'); showToast('Save failed: '+error.message,'#C0392B'); return; }
+  const idx = allJobs.findIndex(j=>j.id===currentJobId);
+  if(idx>=0){allJobs[idx].title=title;allJobs[idx].data=d;}
+  document.getElementById('app-job-name-display').textContent = title;
+  renderOrbitJobs(); setSaveStatus('saved'); isDirty=false; updateOrbDisplay();
+  showToast('✓ Saved');
+}
+
+async function deleteCurrentJob() {
+  if (!currentJobId) return;
+  const job = allJobs.find(j=>j.id===currentJobId);
+  if (!confirm('Delete "'+( job?.title||'this job')+'"?')) return;
+  const {error} = await sb.from('jobs').delete().eq('id',currentJobId);
+  if (error) { showToast('Delete failed','#C0392B'); return; }
+  allJobs = allJobs.filter(j=>j.id!==currentJobId);
+  currentJobId=null; isDirty=false;
+  renderOrbitJobs(); backToOrbit(); updateOrbDisplay();
+  showToast('Job deleted');
+}
+
+function collectFormData() {
+  const g=id=>{const el=document.getElementById(id);return el?el.value:'';};
+  return {
+    clientType:g('clientType'),clientName:g('clientName'),contactName:g('contactName'),
+    clientPhone:g('clientPhone'),clientPhoneAlt:g('clientPhoneAlt'),clientEmail:g('clientEmail'),
+    billStreet:g('billStreet'),billCity:g('billCity'),billZip:g('billZip'),
+    projStreet:g('projStreet'),projCity:g('projCity'),projCounty:g('projCounty'),projZip:g('projZip'),fireZone:g('fireZone'),
+    jobName:g('jobName'),propDate:g('propDate'),validUntil:g('validUntil'),startDate:g('startDate'),endDate:g('endDate'),
+    projManager:g('projManager'),foreman:g('foreman'),ahj:g('ahj'),scopeText:g('scopeText'),internalNotes:g('internalNotes'),
+    contractType:g('contractType'),paymentStructure:g('paymentStructure'),
+    roofSqFt:g('roofSqFt'),wasteFactor:g('wasteFactor'),ridgeLF:g('ridgeLF'),valleyLF:g('valleyLF'),
+    eaveLF:g('eaveLF'),rakeLF:g('rakeLF'),hipLF:g('hipLF'),stepLF:g('stepLF'),roofPitch:g('roofPitch'),numSkylights:g('numSkylights'),numChimneys:g('numChimneys'),
+    taxRate:g('taxRate'),markupRate:g('markupRate'),
+    poNumber:g('poNumber'),poDate:g('poDate'),supplierName:g('supplierName'),
+    supplierContact:g('supplierContact'),supplierPhone:g('supplierPhone'),supplierAcct:g('supplierAcct'),
+    lienInvNum:g('lienInvNum'),lienAmount:g('lienAmount'),lienThruDate:g('lienThruDate'),
+    difficulty, warranty, matQty, labQty, contractOverride:g('contractOverride'),
+    customMatNames, customMatPrices, customLabNames, customLabPrices,
+    coRows:collectCORows(), invoiceRows:collectInvoiceRows(),
+    coNumber:g('coNumber'),coDate:g('coDate'),coRequestedBy:g('coRequestedBy'),coDescription:g('coDescription'),
+    photos: jobPhotos || []
+  };
+}
+
+function collectInvoiceRows() {
+  const rows=[];
+  document.querySelectorAll('#invoiceBody tr').forEach(tr=>{
+    const ins=tr.querySelectorAll('input[type=text],input[type=date],input[type=number],select');
+    const cbs=tr.querySelectorAll('input[type=checkbox]');
+    if(ins.length>=7) rows.push({inv:ins[0]?.value||'',desc:ins[1]?.value||'',invDate:ins[2]?.value||'',dueDate:ins[3]?.value||'',
+      amount:ins[4]?.value||'',status:tr.querySelector('select')?.value||'',received:ins[5]?.value||'',
+      paidDate:ins[6]?.value||'',condRelease:cbs[0]?.checked||false,uncondRelease:cbs[1]?.checked||false});
+  });
+  return rows;
+}
+
+function markDirty() {
+  if (!currentJobId) return;
+  isDirty=true; setSaveStatus('saving');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(()=>{if(currentJobId) saveCurrentJob();}, 3000);
+}
+function setSaveStatus(s) {
+  const el=document.getElementById('save-status');
+  el.className='save-status '+s;
+  if(s==='saving') el.textContent='⟳ Saving...';
+  else if(s==='saved') el.textContent='✓ Saved';
+  else el.textContent='✗ Error';
+}
+document.addEventListener('change',()=>{if(currentJobId) markDirty();});
+// ══════════════════════════════════════════════════════════════
+// TAB SWITCHING
+// ══════════════════════════════════════════════════════════════
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  const panel=document.getElementById('panel-'+name); if(panel) panel.classList.add('active');
+  const btn=document.querySelector('.tab-btn[data-tab="'+name+'"]'); if(btn) btn.classList.add('active');
+  if(name==='proposal') generateProposal();
+}
+
+// ══════════════════════════════════════════════════════════════
+// MATERIALS & LABOR DATA
+// ══════════════════════════════════════════════════════════════
+const MATERIALS = [
+  [1,"3-Tab Asphalt Shingle (25yr)",105,140,175,"sq","Asphalt","25-yr 3-tab; Class A; most economical"],
+  [2,"Architectural Shingle (30yr)",130,170,210,"sq","Asphalt","30-yr laminate; most popular in North Bay"],
+  [3,"Architectural Shingle Premium (50yr)",155,200,250,"sq","Asphalt","50-yr; enhanced algae & impact resistance"],
+  [4,"Designer / Luxury Shake-Look Shingle",200,265,340,"sq","Asphalt","Premium aesthetics; HOA-friendly"],
+  [5,"Class 4 Impact-Resistant Shingle",175,220,275,"sq","Asphalt","Recommended Napa/Sonoma; may reduce insurance"],
+  [103,"\u2605 Custom Asphalt Item A",0,0,0,"sq","Asphalt","Custom item — enter price manually"],
+  [104,"\u2605 Custom Asphalt Item B",0,0,0,"sq","Asphalt","Custom item — enter price manually"],
+  [6,"Concrete S-Tile",200,245,305,"sq","Tile","Heavy 9-12 lbs/sq ft; structural review often needed"],
+  [7,"Concrete Flat Tile",185,225,280,"sq","Tile","Mission/Mediterranean; common Marin estates"],
+  [8,"Clay Barrel Tile",380,490,640,"sq","Tile","Authentic Spanish colonial; 50+ yr lifespan"],
+  [9,"Clay Flat/Low-Profile Tile",340,450,590,"sq","Tile","Fire Class A; common Sonoma hillside homes"],
+  [10,"Lightweight Concrete Tile",210,270,340,"sq","Tile","Lighter alt; less structural reinforcement"],
+  [105,"\u2605 Custom Tile Item A",0,0,0,"sq","Tile","Custom item — enter price manually"],
+  [106,"\u2605 Custom Tile Item B",0,0,0,"sq","Tile","Custom item — enter price manually"],
+  [11,"Corrugated Steel (Exposed Fastener 26ga)",135,165,205,"sq","Metal","Agricultural/modern; popular Sonoma Valley"],
+  [12,"Standing Seam Steel (24ga Galvalume)",365,490,640,"sq","Metal","Premium; concealed fasteners; 40-70 yr lifespan"],
+  [13,"Standing Seam Aluminum (0.032\")",395,520,680,"sq","Metal","Corrosion-free; ideal coastal Marin"],
+  [14,"Metal Shingle / Shake-Look Steel",295,385,500,"sq","Metal","Residential look; Class A fire rated"],
+  [15,"Copper Roofing — Standing Seam",950,1250,1650,"sq","Metal","Ultra-premium; 100+ yr; historic Napa estates"],
+  [107,"\u2605 Custom Metal Item A",0,0,0,"sq","Metal","Custom item — enter price manually"],
+  [108,"\u2605 Custom Metal Item B",0,0,0,"sq","Metal","Custom item — enter price manually"],
+  [34,"SS Metal Panel P3 (1\u00bd\" Mech. Seam)",1148,1350,1620,"sq","Metal-SS Panel","1\u00bd\" mech. seamed standing seam; profile P3; installed $/sq"],
+  [35,"SS Metal Panel P6 (1\u00bd\" Mech. Seam)",1318,1550,1860,"sq","Metal-SS Panel","1\u00bd\" mech. seamed standing seam; profile P6; installed $/sq"],
+  [36,"SS Metal Panel P2 (1\u00bd\" Mech. Seam)",1318,1550,1860,"sq","Metal-SS Panel","1\u00bd\" mech. seamed standing seam; profile P2; installed $/sq"],
+  [37,"Poliglass XFR Underlayment (SS Metal)",298,350,420,"sq","Metal-SS Panel","Fire-rated SS underlayment; includes separate dry-in trip"],
+  [38,"SS Ridge w/ Vent",19,22,26,"lf","Metal-SS Trim","Ridge cap with continuous vent"],
+  [39,"SS Eave Trim",6,6,8,"lf","Metal-SS Trim","Eave/drip edge trim"],
+  [40,"SS Rake Trim P6",10,12,14,"lf","Metal-SS Trim","Rake trim profile P6"],
+  [41,"SS Rake Trim P3",10,12,14,"lf","Metal-SS Trim","Rake trim profile P3"],
+  [42,"SS Rake Trim P2",10,12,14,"lf","Metal-SS Trim","Rake trim profile P2"],
+  [43,"SS Change-in-Slope Flashing",19,22,26,"lf","Metal-SS Trim","Transition flashing at slope changes"],
+  [44,"SS Roof-to-Wall Flashing",10,12,14,"lf","Metal-SS Trim","Roof to wall transition"],
+  [45,"SS Roof-to-Wall Flashing P6",10,12,14,"lf","Metal-SS Trim","Roof to wall profile P6"],
+  [46,"SS Hip Cap P3",15,18,22,"lf","Metal-SS Trim","Hip cap trim profile P3"],
+  [47,"5\" Ogee Seamless 26ga Pre-Painted",13.6,16.0,19.2,"lf","Gutters","5\" K-style ogee; 26ga dual-sided pre-painted; seamless"],
+  [48,"5\u00bd\" Fascia Seamless 26ga Pre-Painted",15.3,18.0,21.6,"lf","Gutters","5\u00bd\" fascia; 26ga dual-sided pre-painted; seamless"],
+  [49,"7\u00bd\" Fascia Seamless 26ga Pre-Painted",17.0,20.0,24.0,"lf","Gutters","7\u00bd\" fascia; 26ga dual-sided pre-painted; seamless"],
+  [50,"Custom Seamless 24ga Unpainted/Pre-Finished",25.5,30.0,36.0,"lf","Gutters","Custom 24ga seamless; unpainted or pre-finished"],
+  [51,"6\" Half-Round .032 Aluminum Reverse Bead",23.8,28.0,33.6,"lf","Gutters","6\" half-round; .032 aluminum; reverse bead profile"],
+  [52,"+ 16oz Copper Upgrade (Gutters)",15.0,15.0,15.0,"lf","Gutters-Copper","ADD to base gutter price — 16 oz copper upgrade"],
+  [53,"+ 20oz Copper Upgrade (Gutters)",18.0,18.0,18.0,"lf","Gutters-Copper","ADD to base gutter price — 20 oz copper upgrade"],
+  [54,"\u2605 Custom Gutter Item (Spare)",0,0,0,"lf","Gutters","Special/custom gutter item — enter price manually"],
+  [55,"26ga Rectangular Smooth 1\u00be\"\u00d72\u00be\"",12.8,15.0,18.0,"lf","Downspouts","26ga rectangular smooth DS"],
+  [56,"3\" Round .032 Aluminum Smooth/Corr. Elbows",16.6,19.5,23.4,"lf","Downspouts","3\" round .032 aluminum; smooth body; corrugated elbows"],
+  [57,"3\"\u00d74\" 26ga Rectangular Unpainted",16.6,19.5,23.4,"lf","Downspouts","3\"x4\" rectangular; 26ga; unpainted"],
+  [58,"+ 16oz Copper Upgrade (Downspouts)",15.0,15.0,15.0,"lf","DS-Copper","ADD to base downspout price — 16 oz copper upgrade"],
+  [59,"\u2605 Custom Downspout Item (Spare)",0,0,0,"lf","Downspouts","Special/custom downspout — enter price manually"],
+  [16,"Cedar Shingles No.1 (FR treated)",310,390,470,"sq","Wood","Class B/C FR treated; verify local fire codes"],
+  [17,"Cedar Shakes No.1 (FR treated)",360,440,550,"sq","Wood","Many HOAs restrict; check VHFHSZ rules"],
+  [18,"TPO Single-Ply Membrane (60-mil)",130,165,220,"sq","Flat","Energy-efficient white; popular on additions"],
+  [19,"EPDM Rubber Membrane (60-mil)",120,155,205,"sq","Flat","Durable; cool-roof versions available"],
+  [20,"Modified Bitumen Torch-Down (2-ply)",145,180,235,"sq","Flat","Common on flat additions; fire watch required"],
+  [21,"Built-Up Roofing BUR (4-ply)",165,210,270,"sq","Flat","Traditional gravel surface"],
+  [22,"PVC Membrane (60-mil)",155,200,265,"sq","Flat","Chemical resistant; restaurant/kitchen exhaust areas"],
+  [23,"Spray Polyurethane Foam SPF (2\")",160,220,295,"sq","Flat","Seamless; excellent insulation; recoat 5-10yr"],
+  [109,"\u2605 Custom Flat Item A",0,0,0,"sq","Flat","Custom item — enter price manually"],
+  [110,"\u2605 Custom Flat Item B",0,0,0,"sq","Flat","Custom item — enter price manually"],
+  [24,"Synthetic Shake — Polymer Class A",265,355,465,"sq","Specialty","Cedar look; no fire risk; ideal hillsides"],
+  [25,"Synthetic Slate — Polymer Class A",315,415,540,"sq","Specialty","Authentic slate look; 1/3 weight of real slate"],
+  [26,"Natural Slate (Vermont/Spanish)",850,1200,1650,"sq","Specialty","Premium; 75-150 yr; structural reinforcement req."],
+  [27,"Solar Roof Tiles (Integrated)",750,1050,1450,"sq","Specialty","Material only; see manufacturer for incentives"],
+  [28,"Cool-Roof Elastomeric Coating",40,58,85,"sq","Specialty","Applied over existing surface; Title 24 compliant"],
+  [29,"Ridge Cap Shingles",65,85,110,"lf","Accessories","Per linear foot of ridge"],
+  [30,"Synthetic Underlayment (30lb equiv)",8,12,18,"sq","Accessories","Per square; standard underlayment"],
+  [31,"Ice & Water Shield",22,30,42,"sq","Accessories","Per square; valleys/eaves/penetrations"],
+  [32,"Pipe Boot / Flashing (rubber)",28,40,60,"ea","Accessories","Per unit"],
+  [33,"Drip Edge (aluminum)",2,3,5,"lf","Accessories","Per linear foot"],
+  [101,"\u2605 Custom Material A (Accessories)",0,0,0,"ea","Accessories","Custom item — enter price manually"],
+  [102,"\u2605 Custom Material B (Accessories)",0,0,0,"ea","Accessories","Custom item — enter price manually"],
+];
+
+const LABOR = [
+  [1,"Asphalt Shingle — 3-Tab Install",90,120,155,"sq","Install"],
+  [2,"Asphalt Shingle — Architectural Install",105,140,180,"sq","Install"],
+  [3,"Asphalt Shingle — Premium Install",120,160,205,"sq","Install"],
+  [4,"Concrete / Clay Tile Install",185,255,335,"sq","Install"],
+  [5,"Standing Seam Metal Install",210,295,395,"sq","Install"],
+  [6,"Corrugated Metal Install",140,185,240,"sq","Install"],
+  [7,"Flat TPO / EPDM Install",100,140,185,"sq","Install"],
+  [8,"Modified Bitumen Install",120,165,220,"sq","Install"],
+  [9,"Spray Foam SPF Install",140,195,260,"sq","Install"],
+  [10,"Synthetic Shake/Slate Install",155,205,265,"sq","Install"],
+  [11,"Natural Slate Install",295,405,540,"sq","Install"],
+  [12,"Single Layer Tear-Off",38,52,73,"sq","Tearoff"],
+  [13,"Double Layer Tear-Off",58,78,105,"sq","Tearoff"],
+  [14,"Triple Layer Tear-Off",78,105,145,"sq","Tearoff"],
+  [15,"Tile Tear-Off (Concrete)",58,78,105,"sq","Tearoff"],
+  [16,"Tile Tear-Off (Clay)",68,92,130,"sq","Tearoff"],
+  [17,"Pitch Surcharge — Moderate (7:12-9:12)",18,28,40,"sq","Surcharge"],
+  [18,"Pitch Surcharge — Steep (10:12-12:12)",35,55,75,"sq","Surcharge"],
+  [19,"Pitch Surcharge — Very Steep (>12:12)",60,85,115,"sq","Surcharge"],
+  [20,"Chimney Flashing Replacement",375,575,875,"ea","Repair"],
+  [21,"Valley Flashing — Open Metal",13,19,28,"lf","Repair"],
+  [22,"Skylight Flashing / Reseal",215,340,525,"ea","Repair"],
+  [23,"Deck Board Replacement (4x8 sheet)",58,85,120,"ea","Repair"],
+  [24,"Ridge Vent Installation",9,14,22,"lf","Repair"],
+  [25,"Permit — Re-Roof (avg)",300,500,800,"job","Permits"],
+  [26,"Fire/VHFHSZ Compliance Inspection",175,325,650,"job","Permits"],
+  [201,"\u2605 Custom Labor Item A",0,0,0,"job","Custom"],
+  [202,"\u2605 Custom Labor Item B",0,0,0,"job","Custom"],
+];
+
+let difficulty='moderate', warranty='1', matQty={}, labQty={};
+let customMatNames={}, customMatPrices={}, customLabNames={}, customLabPrices={};
+let coRows=[];
+
+function fmt(n){return '$'+Number(n||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function getPrice(arr){return arr[{easy:0,moderate:1,complex:2}[difficulty]]||arr[1]}
+function escHtml(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function val(id){return(document.getElementById(id)||{}).value||''}
+function showToast(msg,color){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.background=color||'#1A5C38';t.style.display='block';t.style.opacity='1';
+  setTimeout(()=>{t.style.opacity='0';setTimeout(()=>{t.style.display='none'},300)},2500);
+}
+
+function updateContractTypeInfo() {
+  const ct=val('contractType'); const el=document.getElementById('depositInfo'); if(!el) return;
+  if(ct==='roofing') el.innerHTML='<strong>⚖️ CA B&P Code §7159 — C39 Roofing</strong>Deposit may NOT exceed 10% of contract price OR $1,000 — whichever is LESS.';
+  else el.innerHTML='<strong>⚖️ CA B&P Code §7159 — General B</strong>Deposit may NOT exceed 20% of total contract price OR $1,000 — whichever is LESS.';
+  calcTotals();
+}
+
+function selectDifficulty(d) {
+  difficulty=d;
+  document.querySelectorAll('.diff-card').forEach(c=>c.classList.remove('selected'));
+  const dc=document.getElementById('diff-'+d); if(dc) dc.classList.add('selected');
+  buildTables(); calcTotals(); markDirty();
+}
+function selectWarranty(w) {
+  warranty=w;
+  document.querySelectorAll('.war-card').forEach(c=>c.classList.remove('selected'));
+  const wc=document.getElementById('war-'+w); if(wc) wc.classList.add('selected');
+  calcTotals(); markDirty();
+}
+function buildTables() {
+  const di={easy:0,moderate:1,complex:2}[difficulty];
+  const catLabels={'Metal-SS Panel':'⬛ STANDING SEAM — PANELS & UNDERLAYMENT (installed $/sq)','Metal-SS Trim':'⬛ STANDING SEAM — TRIM (installed $/lf)','Gutters':'🏠 SEAMLESS GUTTERS (installed $/lf)','Gutters-Copper':'🟤 COPPER GUTTER UPGRADES (add-on $/lf)','Downspouts':'⬇️ DOWNSPOUTS (installed $/lf)','DS-Copper':'🟤 COPPER DOWNSPOUT UPGRADES (add-on $/lf)'};
+  const ssCats=new Set(['Metal-SS Panel','Metal-SS Trim','Gutters-Copper','DS-Copper']);
+  let html='',lastCat='';
+  MATERIALS.forEach(([id,name,easy,mod,cplx,unit,cat,desc])=>{
+    if(cat!==lastCat){
+      const label=catLabels[cat]||cat;
+      const isCopper=cat.includes('Copper');const isSS=ssCats.has(cat);const isGut=cat==='Gutters'||cat==='Downspouts';
+      const hdrBg=isCopper?'#5c2e00':isSS?'#1a3a5c':isGut?'#0e4d4d':'';const hdrClr=isCopper?'#f5c88a':(isSS||isGut)?'#a8e6e6':'';
+      html+='<tr class="cat-row" style="'+(hdrBg?'background:'+hdrBg+';':'')+'"><td colspan="8" style="'+(hdrBg?'background:'+hdrBg+';color:'+hdrClr+';font-size:10px;letter-spacing:.5px;':'')+'">'+label+'</td></tr>';
+      lastCat=cat;
+    }
+    const isCustom=id>=100;const isCopperRow=cat.includes('Copper');
+    const rowStyle=isCustom?'background:#f0f4ff;':isCopperRow?'background:#fdf0e6;':'';
+    const price=[easy,mod,cplx][di];const customPrice=customMatPrices[id]||0;const customName=customMatNames[id]||'';
+    if(isCustom){
+      html+='<tr style="'+rowStyle+'"><td style="color:var(--gray-400);font-size:10px">★</td>'
+        +'<td><input type="text" style="width:160px;border:1.5px dashed var(--navy);border-radius:4px;padding:4px 7px;font-size:11px;color:var(--navy);font-weight:600" placeholder="Custom item name..." id="mcn-'+id+'" value="'+escHtml(customName)+'" oninput="setCustomMatName('+id+',this.value)"></td>'
+        +'<td><span style="font-size:9px;padding:2px 6px;background:#e8ecff;border-radius:20px;color:var(--navy)">'+cat+'</span></td>'
+        +'<td><input class="qty-input" type="number" min="0" inputmode="decimal" autocomplete="off" id="mq-'+id+'" placeholder="0" onchange="setMatQty('+id+',this.value)" oninput="setMatQty('+id+',this.value)"></td>'
+        +'<td style="text-align:center;color:var(--gray-600);font-size:11px">'+unit+'</td>'
+        +'<td><input type="number" style="width:75px;border:1.5px dashed var(--navy);border-radius:4px;padding:4px 6px;font-size:11px;font-family:JetBrains Mono,monospace" placeholder="$/unit" id="mcp-'+id+'" value="'+(customPrice||'')+'" oninput="setCustomMatPrice('+id+',this.value)"></td>'
+        +'<td class="total-cell" id="mt-'+id+'">—</td>'
+        +'<td class="desc-cell" style="font-size:10px;color:var(--navy);font-style:italic">Enter name & price ↑</td></tr>';
+    } else {
+      html+='<tr style="'+rowStyle+'"><td style="color:var(--gray-400);font-size:10px">'+id+'</td>'
+        +'<td style="font-weight:500">'+escHtml(name)+'</td>'
+        +'<td><span style="font-size:9px;padding:2px 6px;background:var(--gray-100);border-radius:20px;color:var(--gray-600)">'+cat+'</span></td>'
+        +'<td><input class="qty-input" type="number" min="0" inputmode="decimal" autocomplete="off" id="mq-'+id+'" placeholder="0" onchange="setMatQty('+id+',this.value)" oninput="setMatQty('+id+',this.value)"></td>'
+        +'<td style="text-align:center;color:var(--gray-600);font-size:11px">'+unit+'</td>'
+        +'<td class="price-cell" id="mp-'+id+'">'+(price>0?'$'+price.toFixed(2):'—')+'</td>'
+        +'<td class="total-cell" id="mt-'+id+'">—</td>'
+        +'<td class="desc-cell">'+escHtml(desc)+'</td></tr>';
+    }
+  });
+  document.getElementById('matBody').innerHTML=html;
+  let lhtml='',lastLCat='';
+  LABOR.forEach(([id,name,easy,mod,cplx,unit,cat])=>{
+    if(cat!==lastLCat){lhtml+='<tr class="cat-row"><td colspan="7">'+cat+'</td></tr>';lastLCat=cat;}
+    const price=[easy,mod,cplx][di];const isCustomLab=id>=200;
+    if(isCustomLab){
+      const cln=customLabNames[id]||'';const clp=customLabPrices[id]||0;
+      lhtml+='<tr style="background:#f0f4ff;"><td style="color:var(--gray-400);font-size:10px">★</td>'
+        +'<td><input type="text" style="width:160px;border:1.5px dashed var(--navy);border-radius:4px;padding:4px 7px;font-size:11px;color:var(--navy);font-weight:600" placeholder="Custom labor item..." id="lcn-'+id+'" value="'+escHtml(cln)+'" oninput="setCustomLabName('+id+',this.value)"></td>'
+        +'<td><span style="font-size:9px;padding:2px 6px;background:#e8ecff;border-radius:20px;color:var(--navy)">Custom</span></td>'
+        +'<td><input class="qty-input" type="number" min="0" inputmode="decimal" autocomplete="off" id="lq-'+id+'" placeholder="0" onchange="setLabQty('+id+',this.value)" oninput="setLabQty('+id+',this.value)"></td>'
+        +'<td style="text-align:center;color:var(--gray-600);font-size:11px">job</td>'
+        +'<td><input type="number" style="width:75px;border:1.5px dashed var(--navy);border-radius:4px;padding:4px 6px;font-size:11px;font-family:JetBrains Mono,monospace" placeholder="$/unit" id="lcp-'+id+'" value="'+(clp||'')+'" oninput="setCustomLabPrice('+id+',this.value)"></td>'
+        +'<td class="total-cell" id="lt-'+id+'">—</td></tr>';
+    } else {
+      lhtml+='<tr><td style="color:var(--gray-400);font-size:10px">'+id+'</td>'
+        +'<td style="font-weight:500">'+escHtml(name)+'</td>'
+        +'<td><span style="font-size:9px;padding:2px 6px;background:var(--gray-100);border-radius:20px;color:var(--gray-600)">'+cat+'</span></td>'
+        +'<td><input class="qty-input" type="number" min="0" inputmode="decimal" autocomplete="off" id="lq-'+id+'" placeholder="0" onchange="setLabQty('+id+',this.value)" oninput="setLabQty('+id+',this.value)"></td>'
+        +'<td style="text-align:center;color:var(--gray-600);font-size:11px">'+unit+'</td>'
+        +'<td class="price-cell" id="lp-'+id+'">'+'$'+price.toFixed(2)+'</td>'
+        +'<td class="total-cell" id="lt-'+id+'">—</td></tr>';
+    }
+  });
+  document.getElementById('labBody').innerHTML=lhtml;
+  MATERIALS.forEach(([id])=>{const q=matQty[id];if(q){const el=document.getElementById('mq-'+id);if(el){el.value=q;el.style.background='var(--gold-pale)'}}});
+  LABOR.forEach(([id])=>{const q=labQty[id];if(q){const el=document.getElementById('lq-'+id);if(el){el.value=q;el.style.background='var(--gold-pale)'}}});
+}
+
+function setMatQty(id,v){matQty[id]=parseFloat(v)||0;const el=document.getElementById('mq-'+id);if(el)el.style.background=v&&parseFloat(v)>0?'var(--gold-pale)':'';calcTotals();markDirty();}
+function setLabQty(id,v){labQty[id]=parseFloat(v)||0;const el=document.getElementById('lq-'+id);if(el)el.style.background=v&&parseFloat(v)>0?'var(--gold-pale)':'';calcTotals();markDirty();}
+function setCustomMatName(id,v){customMatNames[id]=v;markDirty();}
+function setCustomMatPrice(id,v){customMatPrices[id]=parseFloat(v)||0;calcTotals();markDirty();}
+function setCustomLabName(id,v){customLabNames[id]=v;markDirty();}
+function setCustomLabPrice(id,v){customLabPrices[id]=parseFloat(v)||0;calcTotals();markDirty();}
+function calcSquares(){const sqft=parseFloat(val('roofSqFt'))||0;const sq=document.getElementById('roofSquares');if(sq)sq.value=(sqft/100).toFixed(2);}
+
+function calcTotals() {
+  let matTotal=0,labTotal=0;
+  MATERIALS.forEach(([id,,easy,mod,cplx])=>{const q=matQty[id]||0;const p=id>=100?(customMatPrices[id]||0):getPrice([easy,mod,cplx]);const t=q*p;matTotal+=t;const el=document.getElementById('mt-'+id);if(el)el.textContent=t>0?fmt(t):'—';});
+  LABOR.forEach(([id,,easy,mod,cplx])=>{const q=labQty[id]||0;const p=id>=200?(customLabPrices[id]||0):getPrice([easy,mod,cplx]);const t=q*p;labTotal+=t;const el=document.getElementById('lt-'+id);if(el)el.textContent=t>0?fmt(t):'—';});
+  const sub=matTotal+labTotal;
+  const taxRate=parseFloat(val('taxRate')||0)/100;
+  const markupRate=parseFloat(val('markupRate')||15)/100;
+  const tax=matTotal*taxRate;const markup=sub*markupRate;
+  const warPrem=warranty==='10'?(sub+tax+markup)*0.05:0;
+  const grand=sub+tax+markup+warPrem;
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=fmt(v);};
+  set('t-mat',matTotal);set('t-lab',labTotal);set('t-sub',sub);set('t-tax',tax);set('t-markup',markup);
+  set('sumMat',matTotal);set('sumLab',labTotal);
+  const warLine=document.getElementById('t-warprem-line');if(warLine)warLine.style.display=warranty==='10'?'flex':'none';
+  set('t-warprem',warPrem);
+  const overrideEl=document.getElementById('contractOverride');
+  const overrideVal=overrideEl?parseFloat(overrideEl.value):NaN;
+  const finalGrand=(!isNaN(overrideVal)&&overrideVal>0)?overrideVal:grand;
+  const overrideLine=document.getElementById('t-override-line');
+  if(overrideLine){
+    if(!isNaN(overrideVal)&&overrideVal>0&&overrideVal!==grand){
+      overrideLine.style.display='flex';
+      const cd=document.getElementById('t-calc-display');if(cd)cd.textContent=fmt(grand);
+      const sd=document.getElementById('t-savings-display');if(sd)sd.textContent=fmt(grand-overrideVal);
+    } else overrideLine.style.display='none';
+  }
+  set('t-grand',finalGrand);set('sumGrand',finalGrand);
+  const ct=val('contractType');const maxPct=ct==='general'?0.20:0.10;
+  const deposit=Math.min(finalGrand*maxPct,1000);
+  set('sumDeposit',deposit);
+  const ic=document.getElementById('inv-contract');if(ic)ic.textContent=fmt(finalGrand);
+  // Update orb total live
+  const orbTotal=document.getElementById('orb-total');
+  if(orbTotal&&finalGrand>0){orbTotal.style.display='block';orbTotal.textContent='$'+Math.round(finalGrand).toLocaleString();}
+  return{matTotal,labTotal,sub,tax,markup,warPrem,grand:finalGrand,calcGrand:grand,deposit};
+}
+// ══════════════════════════════════════════════════════════════
+// PROPOSAL
+// ══════════════════════════════════════════════════════════════
+function generateProposal() {
+  const T=calcTotals();const g=id=>escHtml(val(id));
+  const clientName=g('clientName')||'Client';
+  const projAddr=[val('projStreet'),val('projCity'),'CA',val('projZip')].filter(Boolean).join(', ')||'Job Site';
+  const billAddr=[val('billStreet'),val('billCity'),val('billZip')].filter(Boolean).join(', ');
+  const ct=val('contractType');const ps=val('paymentStructure');
+  const fmtDate=d=>{if(!d)return '—';const p=d.split('-');const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return M[+p[1]-1]+' '+p[2]+', '+p[0];};
+  let lineRows='',lastCat='';
+  MATERIALS.forEach(([id,name,easy,mod,cplx,unit,cat])=>{const q=matQty[id];if(!q)return;const p=getPrice([easy,mod,cplx]);const t=q*p;if(cat!==lastCat){lineRows+='<tr class="prop-cat-hdr"><td colspan="5">'+cat+'</td></tr>';lastCat=cat;}lineRows+='<tr><td>'+escHtml(name)+'</td><td>'+q+'</td><td>'+unit+'</td><td>'+fmt(p)+'</td><td>'+fmt(t)+'</td></tr>';});
+  LABOR.forEach(([id,name,easy,mod,cplx,unit,cat])=>{const q=labQty[id];if(!q)return;const p=getPrice([easy,mod,cplx]);const t=q*p;if(cat!==lastCat){lineRows+='<tr class="prop-cat-hdr"><td colspan="5">Labor — '+cat+'</td></tr>';lastCat=cat;}lineRows+='<tr><td>'+escHtml(name)+'</td><td>'+q+'</td><td>'+unit+'</td><td>'+fmt(p)+'</td><td>'+fmt(t)+'</td></tr>';});
+  const dep=T.deposit;let payRows='';
+  if(ps==='3draw'){const bal=T.grand-dep;const mat=bal*0.45;const comp=bal-mat;payRows='<tr><td>Draw 1 — Deposit (Due at signing)</td><td class="pay-amt">'+fmt(dep)+'</td></tr><tr><td>Draw 2 — Material Delivery</td><td class="pay-amt">'+fmt(mat)+'</td></tr><tr><td>Draw 3 — Completion</td><td class="pay-amt">'+fmt(comp)+'</td></tr>';}
+  else if(ps==='2draw'){payRows='<tr><td>Draw 1 — Deposit (Due at signing)</td><td class="pay-amt">'+fmt(dep)+'</td></tr><tr><td>Draw 2 — Balance Due on Completion</td><td class="pay-amt">'+fmt(T.grand-dep)+'</td></tr>';}
+  else{payRows='<tr><td>Deposit (Due at signing)</td><td class="pay-amt">'+fmt(dep)+'</td></tr><tr><td>Progress Billing — Monthly invoices per work completed</td><td class="pay-amt">Per invoice</td></tr>';}
+  const warText={'1':'1-year workmanship warranty on all labor and materials installed by Titan Roofing & Construction.','2':'2-year workmanship warranty on all labor and materials installed by Titan Roofing & Construction.','5':'5-year workmanship warranty on all labor and materials. Annual inspection included.','10':'10-year workmanship warranty (transferable). Annual inspection, priority service, 24-hour emergency response.'}[warranty];
+  const depLaw=ct==='roofing'?'CA B&P §7159 (C39): Deposit shall not exceed 10% of contract price or $1,000, whichever is less.':'CA B&P §7159 (B): Deposit shall not exceed 20% of total contract price or $1,000, whichever is less.';
+  document.getElementById('proposalOutput').innerHTML=
+    '<div class="prop-header"><div class="prop-company">TITAN ROOFING & CONSTRUCTION</div><div class="prop-tagline">CA LIC. #769821 · (B) GENERAL BUILDING & (C39) ROOFING · SONOMA · MARIN · NAPA</div><div class="prop-contact"><span><strong>Estimator</strong>'+escHtml(val('projManager')||'Abel Jimenez')+'</span><span><strong>Office</strong>707-238-2102</span><span><strong>Cell</strong>707-495-8685</span><span><strong>Email</strong>abel@titanroofer.com</span></div></div>'
+    +'<div class="prop-title-bar"><span>PROJECT PROPOSAL</span><span>www.titanroofer.com</span></div>'
+    +'<div class="prop-body"><div class="prop-info-grid"><div class="prop-info-cell"><label>Proposal Date</label><span>'+fmtDate(val('propDate'))+'</span></div><div class="prop-info-cell"><label>Valid Until</label><span>'+fmtDate(val('validUntil'))+'</span></div><div class="prop-info-cell"><label>Client</label><span>'+clientName+'</span></div><div class="prop-info-cell"><label>Project Address</label><span>'+escHtml(projAddr)+'</span></div><div class="prop-info-cell"><label>Billing Address</label><span>'+escHtml(billAddr||projAddr)+'</span></div><div class="prop-info-cell"><label>County / Fire Zone</label><span>'+g('projCounty')+' · '+g('fireZone')+'</span></div></div>'
+    +'<div class="prop-section-hdr">SCOPE OF WORK</div><div class="prop-scope">'+escHtml(val('scopeText')||'Full roofing system per plans and specifications.')+'</div>'
+    +'<div class="prop-section-hdr">COST BREAKDOWN</div><table class="prop-line-table"><thead><tr><th>Description</th><th>Qty</th><th>Unit</th><th>Unit Price</th><th>Total</th></tr></thead><tbody>'+(lineRows||'<tr><td colspan="5" style="text-align:center;color:var(--gray-400);padding:16px">No items in takeoff</td></tr>')+'</tbody></table>'
+    +'<div class="prop-totals"><div class="prop-total-line"><span>Materials Subtotal</span><span style="font-family:JetBrains Mono,monospace;font-weight:600;color:var(--green)">'+fmt(T.matTotal)+'</span></div><div class="prop-total-line"><span>Labor Subtotal</span><span style="font-family:JetBrains Mono,monospace;font-weight:600;color:var(--navy)">'+fmt(T.labTotal)+'</span></div><div class="prop-total-line"><span>Subtotal</span><span style="font-family:JetBrains Mono,monospace">'+fmt(T.sub)+'</span></div>'+(T.tax>0?'<div class="prop-total-line"><span>Sales Tax ('+val('taxRate')+'%)</span><span style="font-family:JetBrains Mono,monospace">'+fmt(T.tax)+'</span></div>':'')+(T.markup>0?'<div class="prop-total-line"><span>Overhead & Profit ('+val('markupRate')+'%)</span><span style="font-family:JetBrains Mono,monospace">'+fmt(T.markup)+'</span></div>':'')+(T.warPrem>0?'<div class="prop-total-line"><span>10-Year Warranty Premium (5%)</span><span style="font-family:JetBrains Mono,monospace;color:var(--orange)">'+fmt(T.warPrem)+'</span></div>':'')+'</div>'
+    +'<div class="prop-grand"><span>PROPOSAL TOTAL</span><span>'+fmt(T.grand)+'</span></div>'
+    +'<div class="prop-section-hdr">PAYMENT SCHEDULE</div><table class="prop-payment-table"><tbody>'+payRows+'</tbody></table><div class="prop-warning">⚖️ '+depLaw+'</div>'
+    +'<div class="prop-section-hdr">WARRANTY</div><div class="prop-scope" style="background:var(--green-light);border-left-color:var(--green)">✓ '+warText+'</div>'
+    +'<div class="prop-section-hdr">TERMS & CONDITIONS</div><div class="prop-terms"><ol><li>All work performed per CA Building Code, local AHJ requirements, and manufacturer specs.</li><li>'+depLaw+'</li><li>Owner/GC to provide clear site access and staging area. Trash bin by others unless noted.</li><li>Permits by owner unless noted. Permit fees added at cost if requested.</li><li>Work does not include dry-rot, structural, or concealed damage discovered during construction.</li><li>This proposal expires '+fmtDate(val('validUntil'))+'. Acceptance constitutes a binding contract.</li></ol></div>'
+    +'<div class="prop-sig"><div class="sig-block"><h4>Titan Roofing & Construction</h4><div class="sig-line"></div><div class="sig-label">Abel Jimenez — Authorized Signatory</div><div style="margin-top:14px;border-top:1px solid var(--gray-400)"></div><div class="sig-label">Date</div></div><div class="sig-block"><h4>'+clientName+' (Client)</h4><div class="sig-line"></div><div class="sig-label">Signature / Title</div><div style="margin-top:14px;border-top:1px solid var(--gray-400)"></div><div class="sig-label">Date</div></div></div>'
+    +'</div><div class="prop-footer">Titan Roofing & Construction · CA Lic. #769821 · PO Box 7559, Cotati, CA 94931 · 707-238-2102 · abel@titanroofer.com</div>';
+}
+
+// ══════════════════════════════════════════════════════════════
+// PURCHASE ORDER
+// ══════════════════════════════════════════════════════════════
+function generatePO() {
+  const T=calcTotals();
+  const fmtDate=d=>{if(!d)return '—';const p=d.split('-');const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return M[+p[1]-1]+' '+p[2]+', '+p[0];};
+  let matRows='';
+  MATERIALS.forEach(([id,name,easy,mod,cplx,unit])=>{const q=matQty[id];if(!q)return;const p=getPrice([easy,mod,cplx]);const t=q*p;matRows+='<tr><td>'+escHtml(name)+'</td><td style="text-align:center">'+q+'</td><td style="text-align:center">'+unit+'</td><td style="text-align:right;font-family:JetBrains Mono,monospace">'+fmt(p)+'</td><td style="text-align:right;font-family:JetBrains Mono,monospace;font-weight:600">'+fmt(t)+'</td></tr>';});
+  document.getElementById('poOutput').innerHTML=
+    '<div style="background:white;border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden">'
+    +'<div style="background:var(--navy);padding:16px 22px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-family:Bebas Neue,sans-serif;font-size:17px;color:white;letter-spacing:2px">PURCHASE ORDER</div><div style="font-size:10px;color:var(--gold);margin-top:2px">PO #'+escHtml(val('poNumber'))+'</div></div><div style="text-align:right;font-size:10px;color:rgba(255,255,255,.6)">Titan Roofing & Construction<br>PO Box 7559, Cotati CA 94931<br>Lic. #769821</div></div>'
+    +'<div style="padding:16px 22px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px"><div style="background:var(--gray-100);border-radius:8px;padding:10px"><strong style="font-size:9px;color:var(--gray-600);text-transform:uppercase">Supplier</strong><br>'+escHtml(val('supplierName'))+'<br>'+escHtml(val('supplierContact'))+'<br>'+escHtml(val('supplierPhone'))+'<br>Acct: '+escHtml(val('supplierAcct'))+'</div><div style="background:var(--gray-100);border-radius:8px;padding:10px"><strong style="font-size:9px;color:var(--gray-600);text-transform:uppercase">Deliver To</strong><br>'+escHtml(val('projStreet')||'Job site TBD')+'<br>'+escHtml(val('projCity'))+', CA '+escHtml(val('projZip'))+'<br>Job: '+escHtml(val('jobName'))+'<br>Date: '+fmtDate(val('poDate'))+'</div></div>'
+    +'<table style="width:100%;border-collapse:collapse"><thead><tr style="background:var(--green)"><th style="padding:7px 9px;color:white;font-size:10px;text-align:left">Material / Product</th><th style="padding:7px 9px;color:white;font-size:10px;text-align:center">Qty</th><th style="padding:7px 9px;color:white;font-size:10px;text-align:center">Unit</th><th style="padding:7px 9px;color:white;font-size:10px;text-align:right">Unit Price</th><th style="padding:7px 9px;color:white;font-size:10px;text-align:right">Total</th></tr></thead><tbody>'+(matRows||'<tr><td colspan="5" style="text-align:center;padding:16px;color:var(--gray-400)">No materials entered</td></tr>')+'</tbody></table>'
+    +'<div style="text-align:right;margin-top:8px;padding:11px;background:var(--navy);border-radius:var(--radius);color:white;font-family:Bebas Neue,sans-serif;font-size:15px;letter-spacing:1px">MATERIALS TOTAL: <span style="color:var(--gold)">'+fmt(T.matTotal)+'</span></div></div></div>';
+}
+
+// ══════════════════════════════════════════════════════════════
+// INVOICE TRACKER
+// ══════════════════════════════════════════════════════════════
+function addInvoiceRow(data) {
+  rowCounter++;const id='inv-row-'+rowCounter;data=data||{};
+  const tr=document.createElement('tr');tr.id=id;
+  tr.innerHTML='<td><input type="text" style="width:75px;border:1px solid var(--gray-200);border-radius:4px;padding:4px 6px;font-size:11px;font-family:Outfit,sans-serif" value="'+escHtml(data.inv||'')+'"></td>'
+    +'<td><input type="text" style="width:115px;border:1px solid var(--gray-200);border-radius:4px;padding:4px 6px;font-size:11px;font-family:Outfit,sans-serif" placeholder="Draw/description" value="'+escHtml(data.desc||'')+'"></td>'
+    +'<td><input type="date" style="width:105px;border:1px solid var(--gray-200);border-radius:4px;padding:4px 6px;font-size:11px;font-family:Outfit,sans-serif" value="'+escHtml(data.invDate||'')+'"></td>'
+    +'<td><input type="date" style="width:105px;border:1px solid var(--gray-200);border-radius:4px;padding:4px 6px;font-size:11px;font-family:Outfit,sans-serif" value="'+escHtml(data.dueDate||'')+'"></td>'
+    +'<td><input type="number" style="width:85px;border:1px solid var(--gray-200);border-radius:4px;padding:4px 6px;font-size:11px;font-family:JetBrains Mono,monospace" placeholder="0.00" oninput="updateInvoiceSummary()" value="'+escHtml(data.amount||'')+'"></td>'
+    +'<td><select style="border:1px solid var(--gray-200);border-radius:4px;padding:4px 6px;font-size:11px;font-family:Outfit,sans-serif" onchange="updateInvoiceStyle(this)">'+['Pending','Invoiced','Paid','Overdue','Partial'].map(s=>'<option'+(data.status===s?' selected':'')+'>'+s+'</option>').join('')+'</select></td>'
+    +'<td><input type="number" style="width:85px;border:1px solid var(--gray-200);border-radius:4px;padding:4px 6px;font-size:11px;font-family:JetBrains Mono,monospace" placeholder="0.00" oninput="updateInvoiceSummary()" value="'+escHtml(data.received||'')+'"></td>'
+    +'<td><input type="date" style="width:105px;border:1px solid var(--gray-200);border-radius:4px;padding:4px 6px;font-size:11px;font-family:Outfit,sans-serif" value="'+escHtml(data.paidDate||'')+'"></td>'
+    +'<td class="balance-cell" style="font-family:JetBrains Mono,monospace;font-weight:600;font-size:11px">—</td>'
+    +'<td><input type="checkbox"'+(data.condRelease?' checked':'')+'></td>'
+    +'<td><input type="checkbox"'+(data.uncondRelease?' checked':'')+'></td>'
+    +'<td><button onclick="removeInvoiceRow(\''+id+'\')" style="background:var(--red-light);color:var(--red);border:1px solid var(--red);border-radius:4px;padding:3px 6px;font-size:10px;cursor:pointer">✕</button></td>';
+  document.getElementById('invoiceBody').appendChild(tr);
+  updateInvoiceSummary();
+}
+function removeInvoiceRow(id){document.getElementById(id)?.remove();updateInvoiceSummary();markDirty();}
+function updateInvoiceStyle(sel){const row=sel.closest('tr');row.style.background=sel.value==='Paid'?'#f0fff4':sel.value==='Overdue'?'#fff5f5':'';}
+function updateInvoiceSummary(){
+  let totalInv=0,totalRec=0;
+  document.querySelectorAll('#invoiceBody tr').forEach(tr=>{
+    const inputs=tr.querySelectorAll('input[type="number"]');
+    const inv=parseFloat(inputs[0]?.value||0);const rec=parseFloat(inputs[1]?.value||0);
+    totalInv+=inv;totalRec+=rec;
+    const bal=inv-rec;const balCell=tr.querySelector('.balance-cell');
+    if(balCell){balCell.textContent=inv?fmt(bal):'—';balCell.style.color=bal>0?'var(--red)':'var(--green)';}
+  });
+  const T=calcTotals();
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=fmt(v);};
+  set('inv-total',totalInv);set('inv-received',totalRec);set('inv-balance',T.grand-totalRec);
+}
+// ══════════════════════════════════════════════════════════════
+// LIEN RELEASES
+// ══════════════════════════════════════════════════════════════
+function generateLien(type) {
+  const g=id=>document.getElementById(id)?.value?.trim()||'_______________';
+  const clientName=document.getElementById('clientName')?.value||'_______________';
+  const projAddr=[document.getElementById('projStreet')?.value,document.getElementById('projCity')?.value,'CA',document.getElementById('projZip')?.value].filter(Boolean).join(', ')||'_______________';
+  const invNum=g('lienInvNum');const amount=parseFloat(g('lienAmount')||0);const thruDate=g('lienThruDate');
+  const titles={conditional:'CONDITIONAL WAIVER AND RELEASE ON PROGRESS PAYMENT',unconditional:'UNCONDITIONAL WAIVER AND RELEASE ON PROGRESS PAYMENT',final:'UNCONDITIONAL WAIVER AND RELEASE ON FINAL PAYMENT'};
+  const codes={conditional:'§8132',unconditional:'§8134',final:'§8138'};
+  const colors={conditional:'var(--green)',unconditional:'var(--navy)',final:'var(--orange)'};
+  const bodyTexts={conditional:'This release covers a progress payment through the date specified. CONDITIONAL upon receipt of payment in good funds. Claimant reserves all rights related to payments not yet due, extra work, or disputed amounts.',unconditional:'This release covers a progress payment already received. UNCONDITIONAL — extinguishes all lien rights for the amount and period covered. WARNING: Do not sign until payment has cleared your bank.',final:'This release covers the FINAL payment for all labor, services, equipment, and materials. FINAL UNCONDITIONAL — permanently waives ALL remaining lien rights. WARNING: Once signed, ALL lien rights are permanently waived.'};
+  var rows=[['Claimant','Titan Roofing & Construction'],['CA License #','769821 — (B) General Building & (C39) Roofing'],['Customer / Owner',clientName],['Job Location',projAddr],['Invoice / Draw #',invNum],['Payment Amount',amount?fmt(amount):'_______________'],['Through Date',thruDate]].map(function(p,i){return '<tr style="background:'+(i%2?'white':'#f8f9fa')+'"><td style="padding:7px 10px;font-size:11px;font-weight:700;color:#5a6478;width:180px">'+p[0]+'</td><td style="padding:7px 10px;font-size:12px;font-weight:500">'+p[1]+'</td></tr>';}).join('');
+  document.getElementById('lienOutput').innerHTML=
+    '<div style="border:2px solid '+colors[type]+';border-radius:var(--radius-lg);overflow:hidden;max-width:620px">'
+    +'<div style="background:'+colors[type]+';color:white;padding:14px 20px"><div style="font-family:Bebas Neue,sans-serif;font-size:14px;letter-spacing:2px">'+titles[type]+'</div><div style="font-size:10px;color:rgba(255,255,255,.7);margin-top:2px">California Civil Code '+codes[type]+'</div></div>'
+    +'<div style="padding:20px;background:white"><table style="width:100%;border-collapse:collapse;margin-bottom:12px">'+rows+'</table>'
+    +'<div style="background:#f8f9fa;border-left:4px solid '+colors[type]+';padding:12px;font-size:12px;line-height:1.8;color:var(--gray-700)">'+bodyTexts[type]+'</div>'
+    +'<div style="margin-top:20px"><div style="font-size:10px;color:var(--gray-400);margin-bottom:3px">Exceptions, if any:</div><div style="border-bottom:1px solid #ccc;margin-bottom:14px">&nbsp;</div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:22px"><div><div style="border-bottom:1px solid #999;margin-top:34px;padding-top:4px;font-size:10px;color:var(--gray-400)">Signature of Claimant / Title</div><div style="border-bottom:1px solid #999;margin-top:20px;padding-top:4px;font-size:10px;color:var(--gray-400)">Printed Name</div></div><div><div style="border-bottom:1px solid #999;margin-top:34px;padding-top:4px;font-size:10px;color:var(--gray-400)">Date</div></div></div></div></div>'
+    +'<div style="background:var(--gray-100);padding:8px 20px;text-align:right"><button class="btn btn-navy btn-sm" onclick="printLien()">🖨️ Print Release</button></div></div>';
+}
+
+// ══════════════════════════════════════════════════════════════
+// CHANGE ORDERS
+// ══════════════════════════════════════════════════════════════
+let coRowCounter=0;
+function addCORow(data) {
+  coRowCounter++;const id='co-row-'+coRowCounter;data=data||{};
+  const tr=document.createElement('tr');tr.id=id;
+  tr.innerHTML='<td><input type="text" style="width:100%;border:1px solid var(--gray-200);border-radius:4px;padding:5px 7px;font-size:12px;font-family:Outfit,sans-serif" placeholder="Description" value="'+escHtml(data.desc||'')+'"></td>'
+    +'<td><input type="number" style="width:72px;border:1px solid var(--gray-200);border-radius:4px;padding:5px 6px;font-size:12px;font-family:JetBrains Mono,monospace;text-align:center" placeholder="0" oninput="updateCOTotals()" value="'+escHtml(data.qty||'')+'"></td>'
+    +'<td><input type="text" style="width:48px;border:1px solid var(--gray-200);border-radius:4px;padding:5px 5px;font-size:11px;text-align:center" placeholder="ea" value="'+escHtml(data.unit||'ea')+'"></td>'
+    +'<td><input type="number" style="width:96px;border:1px solid var(--gray-200);border-radius:4px;padding:5px 6px;font-size:12px;font-family:JetBrains Mono,monospace" placeholder="0.00" oninput="updateCOTotals()" value="'+escHtml(data.price||'')+'"></td>'
+    +'<td class="co-line-total total-cell" style="font-size:12px">—</td>'
+    +'<td><button data-corow="'+id+'" onclick="removeCORow(this.dataset.corow)" style="background:var(--red-light);color:var(--red);border:1px solid var(--red);border-radius:4px;padding:3px 6px;font-size:10px;cursor:pointer">✕</button></td>';
+  document.getElementById('coBody').appendChild(tr);
+  updateCOTotals();
+}
+function removeCORow(id){document.getElementById(id)?.remove();updateCOTotals();markDirty();}
+function updateCOTotals() {
+  let coTotal=0;
+  document.querySelectorAll('#coBody tr').forEach(tr=>{
+    const inputs=tr.querySelectorAll('input[type="number"]');
+    const qty=parseFloat(inputs[0]?.value||0);const price=parseFloat(inputs[1]?.value||0);
+    const line=qty*price;coTotal+=line;
+    const lineEl=tr.querySelector('.co-line-total');if(lineEl)lineEl.textContent=line>0?fmt(line):'—';
+  });
+  const T=calcTotals();
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=fmt(v);};
+  set('co-orig-total',T.grand);set('co-this-total',coTotal);set('co-revised-total',T.grand+coTotal);
+  markDirty();
+}
+function collectCORows() {
+  const rows=[];
+  document.querySelectorAll('#coBody tr').forEach(tr=>{
+    const ins=tr.querySelectorAll('input');
+    if(ins.length>=4) rows.push({desc:ins[0]?.value||'',qty:ins[1]?.value||'',unit:ins[2]?.value||'',price:ins[3]?.value||''});
+  });
+  return rows;
+}
+
+// ══════════════════════════════════════════════════════════════
+// PRINT (Safari-compatible)
+// ══════════════════════════════════════════════════════════════
+function openPrintTab(htmlContent,title){
+  var win=window.open('','_blank');
+  if(!win){alert('Pop-up blocked.\n\nSafari: Settings → Safari → Block Pop-ups → OFF\nThen try again.');return;}
+  var styles='';document.querySelectorAll('style').forEach(function(s){styles+=s.outerHTML;});
+  var printBar='<div id="ios-print-bar" style="position:sticky;top:0;z-index:9999;background:#1B2A4A;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 2px 12px rgba(0,0,0,.3)">'
+    +'<span style="color:#C9A84C;font-weight:800;font-size:13px;letter-spacing:.5px;font-family:sans-serif">TITAN ROOFING</span>'
+    +'<div style="display:flex;gap:8px">'
+    +'<button onclick="window.print()" style="background:#C9A84C;color:#1B2A4A;border:none;border-radius:8px;padding:10px 22px;font-weight:800;font-size:14px;cursor:pointer;font-family:sans-serif;letter-spacing:.3px">🖨️ Print / Save PDF</button>'
+    +'<button onclick="window.close()" style="background:rgba(255,255,255,.15);color:#fff;border:none;border-radius:8px;padding:10px 14px;font-weight:600;font-size:13px;cursor:pointer;font-family:sans-serif">✕ Close</button>'
+    +'</div>'
+    +'</div>';
+  win.document.write('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>'+title+'</title><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>'+styles+'<style>*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}body{background:white!important;margin:0;padding:0}#ios-print-bar{display:flex!important}@media print{#ios-print-bar{display:none!important}body{padding:0;margin:0}}</style></head><body>'+printBar+htmlContent+'</body></html>');
+  win.document.close();
+}
+function printProposal(){var el=document.getElementById('proposalOutput');if(!el||!el.innerHTML.trim()||el.innerHTML.includes('Proposal Not Yet Generated')){generateProposal();setTimeout(function(){openPrintTab(document.getElementById('proposalOutput').outerHTML,'Titan Roofing — Proposal');},350);return;}openPrintTab(el.outerHTML,'Titan Roofing — Proposal');}
+function printPO(){var el=document.getElementById('poOutput');if(!el||!el.innerHTML.trim()){generatePO();setTimeout(function(){openPrintTab(document.getElementById('poOutput').outerHTML,'Titan Roofing — Purchase Order');},350);return;}openPrintTab(el.outerHTML,'Titan Roofing — Purchase Order');}
+function printLien(){var el=document.getElementById('lienOutput');if(!el||!el.innerHTML.trim()){alert('Generate a lien release first.');return;}openPrintTab(el.outerHTML,'Titan Roofing — Lien Release');}
+
+function printCO() {
+  const T=calcTotals();let coTotal=0;let lineRows='';
+  document.querySelectorAll('#coBody tr').forEach(tr=>{
+    const ins=tr.querySelectorAll('input');if(ins.length<4)return;
+    const desc=ins[0]?.value||'';const qty=parseFloat(ins[1]?.value||0);const unit=ins[2]?.value||'ea';const price=parseFloat(ins[3]?.value||0);
+    const line=qty*price;coTotal+=line;
+    lineRows+='<tr><td style="padding:8px 11px;border-bottom:1px solid #eee;font-size:13px">'+escHtml(desc)+'</td><td style="padding:8px 11px;border-bottom:1px solid #eee;text-align:center;font-size:12px">'+qty+'</td><td style="padding:8px 11px;border-bottom:1px solid #eee;text-align:center;font-size:12px">'+escHtml(unit)+'</td><td style="padding:8px 11px;border-bottom:1px solid #eee;text-align:right;font-family:JetBrains Mono,monospace;font-size:12px">'+fmt(price)+'</td><td style="padding:8px 11px;border-bottom:1px solid #eee;text-align:right;font-family:JetBrains Mono,monospace;font-size:12px;font-weight:700">'+fmt(line)+'</td></tr>';
+  });
+  const fmtDate=d=>{if(!d)return new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});const p=d.split('-');const M=['January','February','March','April','May','June','July','August','September','October','November','December'];return M[+p[1]-1]+' '+p[2]+', '+p[0];};
+  const coNum=val('coNumber')||'CO-001';const clientName=val('clientName')||'Client';
+  const projAddr=[val('projStreet'),val('projCity'),'CA',val('projZip')].filter(Boolean).join(', ')||'Project Site';
+  const html='<div style="font-family:Outfit,sans-serif;max-width:720px;margin:0 auto">'
+    +'<div style="background:linear-gradient(135deg,#1F3A5F,#0d2140);padding:26px 38px;border-left:8px solid #C9A84C"><div style="font-family:Bebas Neue,sans-serif;font-size:26px;color:white;letter-spacing:3px">TITAN ROOFING & CONSTRUCTION</div><div style="color:#C9A84C;font-size:11px;letter-spacing:2px;margin-top:2px">CA LIC. #769821 · (B) GENERAL BUILDING & (C39) ROOFING</div></div>'
+    +'<div style="background:#C9A84C;color:#1F3A5F;padding:8px 38px;font-family:Bebas Neue,sans-serif;font-size:13px;letter-spacing:3px;display:flex;justify-content:space-between"><span>CHANGE ORDER / EXTRA WORK AUTHORIZATION</span><span>'+coNum+'</span></div>'
+    +'<div style="background:white;padding:26px 38px">'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid #e5e8ed;border-radius:8px;overflow:hidden;margin-bottom:20px">'
+    +'<div style="padding:9px 13px;border-right:1px solid #e5e8ed;border-bottom:1px solid #e5e8ed"><div style="font-size:9px;font-weight:700;color:#9aa3b0;text-transform:uppercase;letter-spacing:.7px;margin-bottom:2px">Change Order #</div><div style="font-size:13px;font-weight:600">'+escHtml(coNum)+'</div></div>'
+    +'<div style="padding:9px 13px;border-bottom:1px solid #e5e8ed"><div style="font-size:9px;font-weight:700;color:#9aa3b0;text-transform:uppercase;letter-spacing:.7px;margin-bottom:2px">Date</div><div style="font-size:13px;font-weight:600">'+fmtDate(val('coDate'))+'</div></div>'
+    +'<div style="padding:9px 13px;border-right:1px solid #e5e8ed"><div style="font-size:9px;font-weight:700;color:#9aa3b0;text-transform:uppercase;letter-spacing:.7px;margin-bottom:2px">Client</div><div style="font-size:13px;font-weight:600">'+escHtml(clientName)+'</div></div>'
+    +'<div style="padding:9px 13px"><div style="font-size:9px;font-weight:700;color:#9aa3b0;text-transform:uppercase;letter-spacing:.7px;margin-bottom:2px">Project Address</div><div style="font-size:13px;font-weight:600">'+escHtml(projAddr)+'</div></div></div>'
+    +(val('coDescription')?'<div style="background:#fdf6e3;border-left:4px solid #C9A84C;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:18px;font-size:13px;line-height:1.8;white-space:pre-wrap">'+escHtml(val('coDescription'))+'</div>':'')
+    +'<table style="width:100%;border-collapse:collapse;margin-bottom:14px"><thead><tr style="background:#1A5C38"><th style="padding:8px 11px;color:white;font-size:10px;letter-spacing:.7px;text-align:left">Description</th><th style="padding:8px 11px;color:white;font-size:10px;text-align:center">Qty</th><th style="padding:8px 11px;color:white;font-size:10px;text-align:center">Unit</th><th style="padding:8px 11px;color:white;font-size:10px;text-align:right">Unit Price</th><th style="padding:8px 11px;color:white;font-size:10px;text-align:right">Total</th></tr></thead><tbody>'+(lineRows||'<tr><td colspan="5" style="text-align:center;padding:16px;color:#9aa3b0">No line items</td></tr>')+'</tbody></table>'
+    +'<div style="text-align:right"><div style="display:inline-block;background:#f8f9fa;border:1px solid #e5e8ed;border-radius:8px;padding:13px 18px;min-width:260px"><div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px"><span style="color:#5a6478">Original Contract</span><span style="font-family:JetBrains Mono,monospace;font-weight:600">'+fmt(T.grand)+'</span></div><div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px"><span style="color:#5a6478">This Change Order</span><span style="font-family:JetBrains Mono,monospace;font-weight:600;color:#C9A84C">+'+fmt(coTotal)+'</span></div><div style="display:flex;justify-content:space-between;padding-top:8px;border-top:2px solid #1F3A5F;font-family:Bebas Neue,sans-serif;font-size:17px;letter-spacing:1px"><span>REVISED CONTRACT</span><span style="color:#1A5C38">'+fmt(T.grand+coTotal)+'</span></div></div></div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px"><div style="border:1px solid #e5e8ed;border-radius:8px;padding:16px"><div style="font-size:10px;font-weight:700;color:#1F3A5F;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Titan Roofing & Construction</div><div style="border-top:1px solid #9aa3b0;margin-top:34px;padding-top:4px;font-size:10px;color:#9aa3b0">Abel Jimenez — Authorized Signatory</div><div style="border-top:1px solid #9aa3b0;margin-top:20px;padding-top:4px;font-size:10px;color:#9aa3b0">Date</div></div>'
+    +'<div style="border:1px solid #e5e8ed;border-radius:8px;padding:16px"><div style="font-size:10px;font-weight:700;color:#1F3A5F;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">'+escHtml(clientName)+' (Client Authorization)</div><div style="border-top:1px solid #9aa3b0;margin-top:34px;padding-top:4px;font-size:10px;color:#9aa3b0">Signature / Title</div><div style="border-top:1px solid #9aa3b0;margin-top:20px;padding-top:4px;font-size:10px;color:#9aa3b0">Date</div></div></div>'
+    +'<div style="background:#fdf0ef;border:1px solid #f5c6c6;border-left:4px solid #C0392B;border-radius:8px;padding:9px 13px;margin-top:14px;font-size:11px;color:#C0392B">Work shall NOT commence until this document is signed by both parties.</div>'
+    +'</div><div style="background:#1F3A5F;color:rgba(255,255,255,.5);text-align:center;padding:10px 38px;font-size:10px;letter-spacing:.5px">Titan Roofing & Construction · CA Lic. #769821 · PO Box 7559, Cotati, CA 94931 · 707-238-2102 · abel@titanroofer.com</div></div>';
+  openPrintTab(html,'Titan Roofing — Change Order '+coNum);
+}
+
+function printInvoiceLog() {
+  const T=calcTotals();const clientName=val('clientName')||'Client';
+  const projAddr=[val('projStreet'),val('projCity'),'CA',val('projZip')].filter(Boolean).join(', ')||'Project Site';
+  let rows='';let totalInv=0,totalRec=0;
+  document.querySelectorAll('#invoiceBody tr').forEach(tr=>{
+    const ins=tr.querySelectorAll('input');const sel=tr.querySelector('select');if(!ins.length)return;
+    const invNum=ins[0]?.value||'';const desc=ins[1]?.value||'';const invDate=ins[2]?.value||'';const dueDate=ins[3]?.value||'';
+    const amount=parseFloat(ins[4]?.value||0);const received=parseFloat(ins[5]?.value||0);
+    const status=sel?.value||'';const paidDate=ins[6]?.value||'';
+    const bal=amount-received;totalInv+=amount;totalRec+=received;
+    const statusColor=status==='Paid'?'#1A5C38':status==='Overdue'?'#C0392B':status==='Partial'?'#1F3A5F':'#856404';
+    const statusBg=status==='Paid'?'#eaf4ee':status==='Overdue'?'#fdf0ef':status==='Partial'?'#e8f0fb':'#fff3cd';
+    const fmtD=d=>{if(!d)return '—';const p=d.split('-');const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return M[+p[1]-1]+' '+p[2];};
+    rows+='<tr style="background:'+(amount?'white':'#fafbfc')+'"><td style="padding:8px 11px;font-size:12px;font-weight:600">'+escHtml(invNum)+'</td><td style="padding:8px 11px;font-size:12px">'+escHtml(desc)+'</td><td style="padding:8px 11px;font-size:11px">'+fmtD(invDate)+'</td><td style="padding:8px 11px;font-size:11px">'+fmtD(dueDate)+'</td><td style="padding:8px 11px;font-size:12px;font-family:JetBrains Mono,monospace;font-weight:600;text-align:right">'+(amount?fmt(amount):'—')+'</td><td style="padding:8px 11px;text-align:center"><span style="background:'+statusBg+';color:'+statusColor+';padding:3px 8px;border-radius:20px;font-size:10px;font-weight:700">'+status+'</span></td><td style="padding:8px 11px;font-size:12px;font-family:JetBrains Mono,monospace;text-align:right;color:#1A5C38">'+(received?fmt(received):'—')+'</td><td style="padding:8px 11px;font-size:11px">'+fmtD(paidDate)+'</td><td style="padding:8px 11px;font-size:12px;font-family:JetBrains Mono,monospace;font-weight:700;text-align:right;color:'+(bal>0?'#C0392B':'#1A5C38')+'">'+(amount?fmt(bal):'—')+'</td></tr>';
+  });
+  const html='<div style="font-family:Outfit,sans-serif;max-width:900px;margin:0 auto"><div style="background:linear-gradient(135deg,#1F3A5F,#0d2140);padding:22px 34px;border-left:8px solid #C9A84C"><div style="font-family:Bebas Neue,sans-serif;font-size:24px;color:white;letter-spacing:3px">TITAN ROOFING & CONSTRUCTION</div><div style="color:#C9A84C;font-size:11px;letter-spacing:2px;margin-top:2px">CA LIC. #769821 · INVOICE STATEMENT</div></div><div style="background:#C9A84C;color:#1F3A5F;padding:7px 34px;font-family:Bebas Neue,sans-serif;font-size:13px;letter-spacing:3px;display:flex;justify-content:space-between"><span>INVOICE STATEMENT</span><span>'+new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})+'</span></div><div style="background:white;padding:22px 34px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px"><div style="background:#f8f9fa;border-radius:8px;padding:11px"><div style="font-size:9px;font-weight:700;color:#9aa3b0;text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px">Client</div><div style="font-size:14px;font-weight:600">'+escHtml(clientName)+'</div><div style="font-size:12px;color:#5a6478;margin-top:2px">'+escHtml(projAddr)+'</div></div><div style="background:#f8f9fa;border-radius:8px;padding:11px"><div style="font-size:9px;font-weight:700;color:#9aa3b0;text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px">Contract Total</div><div style="font-size:20px;font-weight:700;font-family:JetBrains Mono,monospace;color:#1A5C38">'+fmt(T.grand)+'</div></div></div>'
+    +'<table style="width:100%;border-collapse:collapse;margin-bottom:14px"><thead><tr style="background:#1F3A5F"><th style="padding:8px 11px;color:white;font-size:10px;letter-spacing:.5px;text-align:left">Inv #</th><th style="padding:8px 11px;color:white;font-size:10px;text-align:left">Description</th><th style="padding:8px 11px;color:white;font-size:10px">Inv Date</th><th style="padding:8px 11px;color:white;font-size:10px">Due Date</th><th style="padding:8px 11px;color:white;font-size:10px;text-align:right">Amount</th><th style="padding:8px 11px;color:white;font-size:10px;text-align:center">Status</th><th style="padding:8px 11px;color:white;font-size:10px;text-align:right">Received</th><th style="padding:8px 11px;color:white;font-size:10px">Paid</th><th style="padding:8px 11px;color:white;font-size:10px;text-align:right">Balance</th></tr></thead><tbody>'+rows+'</tbody></table>'
+    +'<div style="text-align:right"><div style="display:inline-block;background:#1F3A5F;color:white;padding:14px 22px;border-radius:10px;min-width:260px"><div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;opacity:.8"><span>Total Invoiced</span><span style="font-family:JetBrains Mono,monospace">'+fmt(totalInv)+'</span></div><div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;opacity:.8"><span>Total Received</span><span style="font-family:JetBrains Mono,monospace;color:#a8e6a8">'+fmt(totalRec)+'</span></div><div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid rgba(255,255,255,.2);font-family:Bebas Neue,sans-serif;font-size:17px;letter-spacing:1px"><span>BALANCE DUE</span><span style="color:#C9A84C">'+fmt(T.grand-totalRec)+'</span></div></div></div>'
+    +'<div style="margin-top:18px;padding:11px 14px;background:#fdf6e3;border-left:4px solid #C9A84C;border-radius:0 8px 8px 0;font-size:11px;color:#5a6478">Payment due within 30 days of invoice date. Questions? Call Abel Jimenez at 707-495-8685.</div>'
+    +'</div><div style="background:#1F3A5F;color:rgba(255,255,255,.5);text-align:center;padding:10px 34px;font-size:10px;letter-spacing:.5px">Titan Roofing & Construction · CA Lic. #769821 · PO Box 7559, Cotati, CA 94931 · 707-238-2102 · abel@titanroofer.com</div></div>';
+  openPrintTab(html,'Titan Roofing — Invoice Statement — '+clientName);
+}
+
+/* ─── ROOFSNAP IMPORT ─── */
+function openRoofSnapModal() {
+  const modal = document.getElementById('roofsnap-modal');
+  modal.style.display = 'flex';
+  // Pre-fill from existing fields if already filled
+  const prefill = {
+    'rs-sqft': val('roofSqFt'),
+    'rs-waste': val('wasteFactor') || '10',
+    'rs-ridge': val('ridgeLF'),
+    'rs-valley': val('valleyLF'),
+    'rs-eave': val('eaveLF'),
+    'rs-rake': val('rakeLF'),
+    'rs-hip': val('hipLF'),
+    'rs-step': val('stepLF'),
+    'rs-pitch': val('roofPitch'),
+  };
+  Object.entries(prefill).forEach(([id, v]) => {
+    const el = document.getElementById(id);
+    if (el && v) el.value = v;
+  });
+}
+
+function closeRoofSnapModal() {
+  document.getElementById('roofsnap-modal').style.display = 'none';
+}
+
+function applyRoofSnapImport() {
+  const get = id => document.getElementById(id)?.value?.trim() || '';
+  const sqft = parseFloat(get('rs-sqft'));
+  if (!sqft || sqft <= 0) {
+    alert('Total Roof Area (sq ft) is required.');
+    return;
+  }
+
+  // Map all fields
+  const fields = {
+    roofSqFt:   sqft,
+    wasteFactor: parseFloat(get('rs-waste')) || 10,
+    ridgeLF:    parseFloat(get('rs-ridge')) || 0,
+    valleyLF:   parseFloat(get('rs-valley')) || 0,
+    eaveLF:     parseFloat(get('rs-eave')) || 0,
+    rakeLF:     parseFloat(get('rs-rake')) || 0,
+    hipLF:      parseFloat(get('rs-hip')) || 0,
+    stepLF:     parseFloat(get('rs-step')) || 0,
+    roofPitch:  get('rs-pitch'),
+  };
+
+  // Set all takeoff measurement fields
+  Object.entries(fields).forEach(([id, v]) => {
+    const el = document.getElementById(id);
+    if (el) el.value = v || '';
+  });
+
+  // Handle gutters — if entered, note it (user sets qty in materials table manually)
+  const guttersLF = parseFloat(get('rs-gutters')) || 0;
+  if (guttersLF > 0) {
+    const notes = document.getElementById('internalNotes');
+    if (notes) {
+      const existing = notes.value;
+      const msg = `RoofSnap Import: Gutters ${guttersLF} LF — add to materials takeoff.`;
+      if (!existing.includes('RoofSnap Import')) notes.value = (existing ? existing + '\n' : '') + msg;
+    }
+  }
+
+  // Auto-suggest difficulty based on pitch
+  const pitchStr = get('rs-pitch');
+  const pitchMatch = pitchStr.match(/(\d+)\s*[:/]/);
+  if (pitchMatch) {
+    const rise = parseInt(pitchMatch[1]);
+    let diff = 'easy';
+    if (rise >= 7 && rise <= 9) diff = 'moderate';
+    else if (rise >= 10) diff = 'complex';
+    selectDifficulty(diff);
+  }
+
+  calcSquares();
+  calcTotals();
+  markDirty();
+  closeRoofSnapModal();
+
+  showToast(`✅ RoofSnap data imported — ${(sqft/100).toFixed(2)} squares loaded`, '#34d399');
+}
+
+/* ─── EMAIL PROPOSAL ─── */
+function emailProposal() {
+  const clientEmail = val('clientEmail');
+  const clientName  = val('clientName') || val('contactName') || 'there';
+  const projStreet  = val('projStreet') || 'your project';
+  const jobTitle    = document.getElementById('job-title-input')?.value || projStreet;
+
+  // Build plain-text summary for email body
+  const T = calcTotals();
+  const grand = T.grand ? '$' + Number(T.grand).toLocaleString('en-US',{maximumFractionDigits:0}) : '[see proposal]';
+  const scope = val('scopeText') || 'Full roofing scope per attached proposal.';
+  const validUntil = val('validUntil') || '';
+
+  const subject = encodeURIComponent('Titan Roofing — Proposal for ' + jobTitle);
+  const body = encodeURIComponent(
+    'Hi ' + clientName + ',\n\n'
+    + 'Thank you for the opportunity to bid your project. Please find your roofing proposal details below.\n\n'
+    + '📋 PROJECT: ' + jobTitle + '\n'
+    + '💰 PROPOSAL TOTAL: ' + grand + '\n'
+    + (validUntil ? '📅 VALID UNTIL: ' + validUntil + '\n' : '')
+    + '\n─── SCOPE OF WORK ───\n'
+    + scope + '\n\n'
+    + 'To move forward, please reply to this email or call Abel at 707-495-8685.\n\n'
+    + 'For the full printed proposal, please request a PDF copy.\n\n'
+    + 'Thank you,\n'
+    + 'Abel Jimenez\n'
+    + 'Titan Roofing & Construction\n'
+    + 'CA Lic. #769821 · (B) General Building & (C39) Roofing\n'
+    + '707-495-8685 · abel@titanroofer.com\n'
+    + 'www.titanroofer.com'
+  );
+
+  const mailto = 'mailto:' + (clientEmail || '') + '?subject=' + subject + '&body=' + body;
+
+  if (!clientEmail) {
+    const go = confirm('No client email on file.\n\nTap OK to open a blank email you can address manually, or Cancel to go add the email first.');
+    if (!go) { switchTab('project'); return; }
+  }
+
+  window.location.href = mailto;
+}
+
+/* ─── PHOTO UPLOAD ─── */
+function handlePhotoUpload(event) {
+  const files = Array.from(event.target.files);
+  if (!files.length) return;
+  let loaded = 0;
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      jobPhotos.push({ name: file.name, dataUrl: e.target.result });
+      loaded++;
+      if (loaded === files.length) {
+        renderPhotoGrid();
+        markDirty();
+        showToast('📸 ' + files.length + ' photo' + (files.length > 1 ? 's' : '') + ' added', '#10b981');
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+  event.target.value = ''; // reset so same photo can be re-added
+}
+
+function renderPhotoGrid() {
+  const grid = document.getElementById('photoGrid');
+  if (!grid) return; // not in DOM yet, skip silently
+  if (!jobPhotos.length) { grid.innerHTML = ''; return; }
+  grid.innerHTML = jobPhotos.map((p, i) =>
+    '<div style="position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1;background:#f1f5f9">'
+    + '<img src="' + p.dataUrl + '" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy">'
+    + '<button onclick="removePhoto(' + i + ')" style="position:absolute;top:4px;right:4px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:12px;cursor:pointer;line-height:1;padding:0">✕</button>'
+    + '<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);color:#fff;font-size:9px;padding:3px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + p.name + '</div>'
+    + '</div>'
+  ).join('');
+}
+
+function removePhoto(i) {
+  jobPhotos.splice(i, 1);
+  renderPhotoGrid();
+  markDirty();
+}
+
+// Save photos with job data — hook into existing save
+const _origCollectData = typeof collectJobData === 'function' ? collectJobData : null;
+
+/* ─── GUTTER AUTO-CALC ─── */
+let gutterAutoLinked = true; // tracks if gutter is linked to eave
+
+function autoCalcGutters() {
+  if (!gutterAutoLinked) return;
+  const eaveEl = document.getElementById('eaveLF');
+  if (!eaveEl) return;
+  const eave = parseFloat(eaveEl.value) || 0;
+  if (!eave) return;
+  // Find gutter material rows and set qty to match eave LF
+  // Gutter IDs: 52=5" aluminum, 53=6" aluminum, 54=copper 5", 55=copper 6"
+  const gutterIds = [52, 53, 54, 55];
+  let found = false;
+  gutterIds.forEach(id => {
+    const el = document.getElementById('mq-' + id);
+    if (el && (parseFloat(el.value) > 0 || !found)) {
+      // Only auto-fill the first active gutter row, or all if none active
+      if (!found) {
+        setMatQty(id, eave);
+        found = true;
+      }
+    }
+  });
+  if (!found) {
+    // No gutter row active yet — silently stage the value for when user adds gutters
+    window._pendingGutterLF = eave;
+  }
+  showToast('🏠 Gutter qty auto-set to ' + eave + ' LF (matches eave)', '#C9A84C');
+}
+</script>
 </body>
 </html>
