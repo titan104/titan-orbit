@@ -1261,20 +1261,34 @@ async function doLogin() {
 async function doLogout() { await sb.auth.signOut(); }
 
 sb.auth.onAuthStateChange(async (event, session) => {
-  if (session) {
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('orbit-shell').style.display = 'block';
-    const name = session.user.user_metadata?.full_name || session.user.email.split('@')[0];
-    document.getElementById('orbit-user-pill').textContent = '👤 ' + name;
-    document.getElementById('app-user-pill').textContent = '👤 ' + name;
-    document.getElementById('dot-auth').classList.add('active');
-    await loadJobs();
-    buildTables(); calcTotals(); updateContractTypeInfo();
-    setTimeout(initOrbit, 100);
-  } else {
+  try {
+    if (session) {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('orbit-shell').style.display = 'block';
+      const name = session.user.user_metadata?.full_name || session.user.email.split('@')[0];
+      document.getElementById('orbit-user-pill').textContent = '👤 ' + name;
+      document.getElementById('app-user-pill').textContent = '👤 ' + name;
+      document.getElementById('dot-auth').classList.add('active');
+      await loadJobs();
+      try { buildTables(); } catch(e) { console.error('buildTables error:', e); }
+      try { calcTotals(); } catch(e) { console.error('calcTotals error:', e); }
+      try { updateContractTypeInfo(); } catch(e) { console.error('contractType error:', e); }
+      setTimeout(() => {
+        try { initOrbit(); } catch(e) { console.error('initOrbit error:', e); }
+      }, 100);
+    } else {
+      document.getElementById('login-screen').style.display = 'flex';
+      document.getElementById('orbit-shell').style.display = 'none';
+      document.getElementById('app-layer').style.display = 'none';
+    }
+  } catch(e) {
+    console.error('Auth handler error:', e);
+    // Show login screen as safe fallback
     document.getElementById('login-screen').style.display = 'flex';
     document.getElementById('orbit-shell').style.display = 'none';
     document.getElementById('app-layer').style.display = 'none';
+    const err = document.getElementById('login-err');
+    if (err) { err.textContent = 'App error: ' + e.message + ' — please try again.'; err.style.display = 'block'; }
   }
 });
 
