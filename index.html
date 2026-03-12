@@ -674,6 +674,17 @@ body{font-family:'Outfit',sans-serif;background:#0d1520;color:var(--gray-800);mi
       <div class="field"><textarea id="internalNotes" rows="3" placeholder="Internal only — not shown to client..."></textarea></div>
     </div>
   </div>
+  <div class="card">
+    <div class="card-header"><h2>📸 Job Site Photos</h2><span class="badge">Saved with job</span></div>
+    <div class="card-body">
+      <div style="margin-bottom:10px;font-size:12px;color:#64748b">Tap to add photos from your camera roll or take a new photo. Stored locally with this job.</div>
+      <label for="photoUpload" style="display:inline-flex;align-items:center;gap:8px;background:#1B2A4A;color:#fff;border-radius:8px;padding:10px 18px;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.3px">
+        📷 Add Photos
+        <input type="file" id="photoUpload" accept="image/*" multiple capture="environment" style="display:none" onchange="handlePhotoUpload(event)">
+      </label>
+      <div id="photoGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px;margin-top:14px"></div>
+    </div>
+  </div>
 </div>
 
 <!-- ══ ROOFSNAP IMPORT MODAL ══ -->
@@ -750,7 +761,7 @@ body{font-family:'Outfit',sans-serif;background:#0d1520;color:var(--gray-800);mi
         <div class="field"><label>Waste Factor %</label><input type="number" id="wasteFactor" value="10" min="0" max="30"></div>
         <div class="field"><label>Ridge Linear Feet</label><input type="number" id="ridgeLF" placeholder="0"></div>
         <div class="field"><label>Valley Linear Feet</label><input type="number" id="valleyLF" placeholder="0"></div>
-        <div class="field"><label>Eave Linear Feet</label><input type="number" id="eaveLF" placeholder="0"></div>
+        <div class="field"><label>Eave Linear Feet</label><input type="number" id="eaveLF" placeholder="0" oninput="autoCalcGutters()"></div>
         <div class="field"><label>Rake Linear Feet</label><input type="number" id="rakeLF" placeholder="0"></div>
         <div class="field"><label>Hip Linear Feet</label><input type="number" id="hipLF" placeholder="0"></div>
         <div class="field"><label>Step Flashing LF</label><input type="number" id="stepLF" placeholder="0"></div>
@@ -814,6 +825,7 @@ body{font-family:'Outfit',sans-serif;background:#0d1520;color:var(--gray-800);mi
   <div class="btn-row" style="margin-bottom:14px">
     <button class="btn btn-primary" onclick="generateProposal()">⚡ Generate Proposal</button>
     <button class="btn btn-navy" onclick="printProposal()">🖨️ Print / PDF</button>
+    <button class="btn" style="background:#10b981;color:#fff;border:none" onclick="emailProposal()">📧 Email to Client</button>
     <div style="font-size:11px;color:#64748b;padding:7px 11px;background:#f0f9ff;border-radius:8px;border-left:3px solid #3b82f6">📱 iPhone: Share ⬆ → Print &nbsp;|&nbsp; 💻 Mac: Cmd+P</div>
     <button class="btn btn-ghost" onclick="switchTab('takeoff')">← Takeoff</button>
   </div>
@@ -1350,6 +1362,9 @@ async function selectOrbitJob(id) {
   const irows=d.invoiceRows||[];
   if(irows.length) irows.forEach(r=>addInvoiceRow(r)); else addInvoiceRow();
   updateInvoiceSummary();
+  // Restore photos
+  jobPhotos = d.photos || [];
+  renderPhotoGrid();
   setSaveStatus('saved'); isDirty=false;
   renderOrbitJobs();
   updateOrbDisplay();
@@ -1418,7 +1433,8 @@ function collectFormData() {
     difficulty, warranty, matQty, labQty, contractOverride:g('contractOverride'),
     customMatNames, customMatPrices, customLabNames, customLabPrices,
     coRows:collectCORows(), invoiceRows:collectInvoiceRows(),
-    coNumber:g('coNumber'),coDate:g('coDate'),coRequestedBy:g('coRequestedBy'),coDescription:g('coDescription')
+    coNumber:g('coNumber'),coDate:g('coDate'),coRequestedBy:g('coRequestedBy'),coDescription:g('coDescription'),
+    photos: jobPhotos || []
   };
 }
 
@@ -2012,10 +2028,120 @@ function applyRoofSnapImport() {
   showToast(`✅ RoofSnap data imported — ${(sqft/100).toFixed(2)} squares loaded`, '#34d399');
 }
 
-// Close modal on backdrop click
-document.getElementById('roofsnap-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeRoofSnapModal();
-});
+/* ─── EMAIL PROPOSAL ─── */
+function emailProposal() {
+  const clientEmail = val('clientEmail');
+  const clientName  = val('clientName') || val('contactName') || 'there';
+  const projStreet  = val('projStreet') || 'your project';
+  const jobTitle    = document.getElementById('job-title-input')?.value || projStreet;
+
+  // Build plain-text summary for email body
+  const T = calcTotals();
+  const grand = T.grand ? '$' + Number(T.grand).toLocaleString('en-US',{maximumFractionDigits:0}) : '[see proposal]';
+  const scope = val('scopeText') || 'Full roofing scope per attached proposal.';
+  const validUntil = val('validUntil') || '';
+
+  const subject = encodeURIComponent('Titan Roofing — Proposal for ' + jobTitle);
+  const body = encodeURIComponent(
+    'Hi ' + clientName + ',\n\n'
+    + 'Thank you for the opportunity to bid your project. Please find your roofing proposal details below.\n\n'
+    + '📋 PROJECT: ' + jobTitle + '\n'
+    + '💰 PROPOSAL TOTAL: ' + grand + '\n'
+    + (validUntil ? '📅 VALID UNTIL: ' + validUntil + '\n' : '')
+    + '\n─── SCOPE OF WORK ───\n'
+    + scope + '\n\n'
+    + 'To move forward, please reply to this email or call Abel at 707-495-8685.\n\n'
+    + 'For the full printed proposal, please request a PDF copy.\n\n'
+    + 'Thank you,\n'
+    + 'Abel Jimenez\n'
+    + 'Titan Roofing & Construction\n'
+    + 'CA Lic. #769821 · (B) General Building & (C39) Roofing\n'
+    + '707-495-8685 · abel@titanroofer.com\n'
+    + 'www.titanroofer.com'
+  );
+
+  const mailto = 'mailto:' + (clientEmail || '') + '?subject=' + subject + '&body=' + body;
+
+  if (!clientEmail) {
+    const go = confirm('No client email on file.\n\nTap OK to open a blank email you can address manually, or Cancel to go add the email first.');
+    if (!go) { switchTab('project'); return; }
+  }
+
+  window.location.href = mailto;
+}
+
+/* ─── PHOTO UPLOAD ─── */
+let jobPhotos = []; // array of {name, dataUrl}
+
+function handlePhotoUpload(event) {
+  const files = Array.from(event.target.files);
+  if (!files.length) return;
+  let loaded = 0;
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      jobPhotos.push({ name: file.name, dataUrl: e.target.result });
+      loaded++;
+      if (loaded === files.length) {
+        renderPhotoGrid();
+        markDirty();
+        showToast('📸 ' + files.length + ' photo' + (files.length > 1 ? 's' : '') + ' added', '#10b981');
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+  event.target.value = ''; // reset so same photo can be re-added
+}
+
+function renderPhotoGrid() {
+  const grid = document.getElementById('photoGrid');
+  if (!grid) return;
+  if (!jobPhotos.length) { grid.innerHTML = ''; return; }
+  grid.innerHTML = jobPhotos.map((p, i) =>
+    '<div style="position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1;background:#f1f5f9">'
+    + '<img src="' + p.dataUrl + '" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy">'
+    + '<button onclick="removePhoto(' + i + ')" style="position:absolute;top:4px;right:4px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:12px;cursor:pointer;line-height:1;padding:0">✕</button>'
+    + '<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);color:#fff;font-size:9px;padding:3px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + p.name + '</div>'
+    + '</div>'
+  ).join('');
+}
+
+function removePhoto(i) {
+  jobPhotos.splice(i, 1);
+  renderPhotoGrid();
+  markDirty();
+}
+
+// Save photos with job data — hook into existing save
+const _origCollectData = typeof collectJobData === 'function' ? collectJobData : null;
+
+/* ─── GUTTER AUTO-CALC ─── */
+let gutterAutoLinked = true; // tracks if gutter is linked to eave
+
+function autoCalcGutters() {
+  if (!gutterAutoLinked) return;
+  const eave = parseFloat(document.getElementById('eaveLF')?.value) || 0;
+  if (!eave) return;
+  // Find gutter material rows and set qty to match eave LF
+  // Gutter IDs: 52=5" aluminum, 53=6" aluminum, 54=copper 5", 55=copper 6"
+  const gutterIds = [52, 53, 54, 55];
+  let found = false;
+  gutterIds.forEach(id => {
+    const el = document.getElementById('mq-' + id);
+    if (el && (parseFloat(el.value) > 0 || !found)) {
+      // Only auto-fill the first active gutter row, or all if none active
+      if (!found) {
+        setMatQty(id, eave);
+        found = true;
+      }
+    }
+  });
+  if (!found) {
+    // No gutter row active yet — silently stage the value for when user adds gutters
+    window._pendingGutterLF = eave;
+  }
+  showToast('🏠 Gutter qty auto-set to ' + eave + ' LF (matches eave)', '#C9A84C');
+}
 </script>
 </body>
 </html>
